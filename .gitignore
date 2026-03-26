@@ -1,0 +1,17 @@
+# Keep articles (date-based archive) tracked
+# Ignore everything else
+
+memory/
+raw-materials/
+skills/
+tech-insights/
+.backups/
+.learnings/
+.clawdhub/
+.clawhub/
+.openclaw/
+agents/
+config/
+data/
+reports/
+scripts/
