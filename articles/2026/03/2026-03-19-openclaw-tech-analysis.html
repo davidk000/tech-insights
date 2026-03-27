@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw 技术架构分析</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 40px;
+            position: relative;
+            border-bottom: 1px solid #333;
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            font-size: 14px;
+            color: #666;
+            font-weight: 300;
+        }
+
+        h1 {
+            font-size: 72px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            letter-spacing: -1px;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .subtitle {
+            font-size: 28px;
+            color: #888;
+            font-weight: 300;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .tagline {
+            font-size: 24px;
+            color: #ff6b35;
+            font-weight: 500;
+            margin-top: 40px;
+            letter-spacing: 2px;
+        }
+
+        .content {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .lead {
+            font-size: 24px;
+            line-height: 1.6;
+            color: #ccc;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .highlight {
+            color: #ff6b35;
+            font-weight: 600;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: #ff6b35;
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .feature-desc {
+            font-size: 16px;
+            color: #999;
+            line-height: 1.5;
+        }
+
+        .arch-diagram {
+            background: #0d0d0d;
+            border: 2px solid #333;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .arch-layer {
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .arch-users {
+            background: linear-gradient(135deg, #2d1f3d 0%, #1a1225 100%);
+            border: 1px solid #4a3460;
+        }
+
+        .arch-gateway {
+            background: linear-gradient(135deg, #1f3d3d 0%, #122525 100%);
+            border: 1px solid #346060;
+        }
+
+        .arch-agent {
+            background: linear-gradient(135deg, #3d1f1f 0%, #251212 100%);
+            border: 1px solid #603434;
+        }
+
+        .arch-arrow {
+            font-size: 24px;
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .tech-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .tech-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid #222;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tech-list li::before {
+            content: "▸";
+            color: #ff6b35;
+            margin-right: 15px;
+            font-size: 24px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 40px;
+            font-size: 16px;
+        }
+
+        .comparison-table th {
+            background: #1a1a1a;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #333;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #222;
+            color: #ccc;
+        }
+
+        .comparison-table tr:hover td {
+            background: #111;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 64px;
+            font-weight: 700;
+            color: #ff6b35;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 18px;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .quote {
+            font-size: 32px;
+            font-style: italic;
+            color: #aaa;
+            text-align: center;
+            max-width: 800px;
+            line-height: 1.4;
+            border-left: 4px solid #ff6b35;
+            padding-left: 30px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            font-size: 14px;
+            color: #444;
+        }
+
+        .nav-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: #444;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        code {
+            background: #1a1a1a;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: "SF Mono", Monaco, monospace;
+            font-size: 0.9em;
+            color: #ff6b35;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 42px; }
+            h2 { font-size: 32px; }
+            .stat-grid { grid-template-columns: 1fr; }
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Cover -->
+    <div class="slide">
+        <div class="slide-number">1</div>
+        <h1>OpenClaw</h1>
+        <p class="subtitle">个人 AI 助手的技术架构深度分析</p>
+        <p class="tagline">EXFOLIATE! EXFOLIATE!</p>
+        <div class="footer">技术分析报告 · 2026</div>
+        <div class="nav-hint">↓ 向下滚动</div>
+    </div>
+
+    <!-- Slide 2: What is OpenClaw -->
+    <div class="slide">
+        <div class="slide-number">2</div>
+        <h2>这是什么？</h2>
+        <div class="content">
+            <p class="lead">
+                <span class="highlight">OpenClaw</span> 是一个<span class="highlight">本地优先</span>的个人 AI 助手框架，<br>
+                让你在自有设备上运行私有的智能助手，<br>
+                通过 WhatsApp、Telegram、Slack 等 12+ 渠道与你交互。
+            </p>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏠</div>
+                    <div class="feature-title">本地优先</div>
+                    <div class="feature-desc">完全本地运行，数据不出设备，隐私可控</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔌</div>
+                    <div class="feature-title">多通道原生</div>
+                    <div class="feature-desc">12+ 即时通讯平台开箱即用，无需额外开发</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛠️</div>
+                    <div class="feature-title">技能系统</div>
+                    <div class="feature-desc">Markdown + YAML 定义技能，ClawHub 生态扩展</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Architecture Overview -->
+    <div class="slide">
+        <div class="slide-number">3</div>
+        <h2>架构概览</h2>
+        <div class="content">
+            <div class="arch-diagram">
+                <div class="arch-layer arch-users">
+                    📱 WhatsApp · Telegram · Slack · Discord · Signal · WebChat
+                </div>
+                <div class="arch-arrow">↓</div>
+                <div class="arch-layer arch-gateway">
+                    🌐 Gateway (控制平面)<br>
+                    <small>ws://127.0.0.1:18789 · 会话管理 · 通道管理 · 任务调度</small>
+                </div>
+                <div class="arch-arrow">↓</div>
+                <div class="arch-layer arch-agent">
+                    🤖 Pi Agent (运行时)<br>
+                    <small>工具调用 · 模型交互 · 技能加载</small>
+                </div>
+            </div>
+            <p class="lead" style="margin-top: 30px;">
+                采用 <span class="highlight">"Gateway + Agent"</span> 分布式控制平面架构<br>
+                单一 Gateway 控制所有消息通道，Agent 负责智能处理
+            </p>
+        </div>
+    </div>
+
+    <!-- Slide 4: Core Components -->
+    <div class="slide">
+        <div class="slide-number">4</div>
+        <h2>核心组件</h2>
+        <div class="content">
+            <ul class="tech-list">
+                <li>
+                    <strong>Gateway（网关）</strong> — WebSocket 控制平面，TypeBox 类型验证，设备配对系统
+                </li>
+                <li>
+                    <strong>Agent Runtime</strong> — 基于 pi-mono，工作区隔离，会话 JSONL 存储
+                </li>
+                <li>
+                    <strong>Channel Adapters</strong> — Baileys(WhatsApp)、grammY(Telegram)、Bolt(Slack) 等
+                </li>
+                <li>
+                    <strong>Canvas Host</strong> — A2UI（Agent-to-User）可视化工作空间，独立端口 18793
+                </li>
+                <li>
+                    <strong>Node System</strong> — iOS/macOS/Android 设备作为 Agent 能力延伸
+                </li>
+                <li>
+                    <strong>Skills Platform</strong> — 三级加载优先级（工作区 > 本地 > 内置）
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 5: Tech Stack -->
+    <div class="slide">
+        <div class="slide-number">5</div>
+        <h2>技术栈</h2>
+        <div class="content">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <div class="feature-title">运行时</div>
+                    <div class="feature-desc">Node.js ≥22 · TypeScript · ESM 模块</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔌</div>
+                    <div class="feature-title">通信</div>
+                    <div class="feature-desc">WebSocket · JSON Schema · TypeBox 验证</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🗄️</div>
+                    <div class="feature-title">存储</div>
+                    <div class="feature-desc">SQLite · JSONL 会话 · 本地文件系统</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-title">前端</div>
+                    <div class="feature-desc">Vite · Lit (Web Components) · 无框架依赖</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <div class="feature-title">安全</div>
+                    <div class="feature-desc">设备配对 · Token 认证 · Docker 沙箱</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">移动端</div>
+                    <div class="feature-desc">Swift (iOS/macOS) · Kotlin (Android) · Bonjour 配对</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Unique Features -->
+    <div class="slide">
+        <div class="slide-number">6</div>
+        <h2>技术亮点</h2>
+        <div class="content">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎭</div>
+                    <div class="feature-title">引导文件系统</div>
+                    <div class="feature-desc">AGENTS.md · SOUL.md · TOOLS.md · IDENTITY.md 定义 Agent 人格与行为</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <div class="feature-title">会话管理</div>
+                    <div class="feature-desc">steer/followup/collect 三种队列模式，支持消息注入与会话隔离</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧩</div>
+                    <div class="feature-title">技能条件加载</div>
+                    <div class="feature-desc">metadata.openclaw.requires 支持环境变量、二进制、配置、OS 平台过滤</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌉</div>
+                    <div class="feature-title">Tailscale 集成</div>
+                    <div class="feature-desc">内置 Serve/Funnel 支持，无需 SSH 隧道即可远程访问 Gateway</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Comparison -->
+    <div class="slide">
+        <div class="slide-number">7</div>
+        <h2>同类项目对比</h2>
+        <div class="content">
+            <table class="comparison-table">
+                <tr>
+                    <th>特性</th>
+                    <th>OpenClaw</th>
+                    <th>AutoGen</th>
+                    <th>ChatGPT-on-WeChat</th>
+                </tr>
+                <tr>
+                    <td>架构</td>
+                    <td>单 Gateway + 多 Channel</td>
+                    <td>多 Agent 协作</td>
+                    <td>单点微信机器人</td>
+                </tr>
+                <tr>
+                    <td>部署</td>
+                    <td>本地优先 + 可选远程</td>
+                    <td>云原生/K8s</td>
+                    <td>本地部署</td>
+                </tr>
+                <tr>
+                    <td>消息通道</td>
+                    <td>12+ 平台原生</td>
+                    <td>主要面向 API</td>
+                    <td>仅微信</td>
+                </tr>
+                <tr>
+                    <td>技能系统</td>
+                    <td>三级加载 + ClawHub</td>
+                    <td>代码级扩展</td>
+                    <td>无</td>
+                </tr>
+                <tr>
+                    <td>跨平台节点</td>
+                    <td>iOS/macOS/Android</td>
+                    <td>无</td>
+                    <td>无</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Slide 8: Stats -->
+    <div class="slide">
+        <div class="slide-number">8</div>
+        <h2>项目数据</h2>
+        <div class="content">
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <div class="stat-label">内置技能</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">12+</span>
+                    <div class="stat-label">消息通道</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">3</span>
+                    <div class="stat-label">客户端平台</div>
+                </div>
+            </div>
+            <p class="lead" style="margin-top: 60px;">
+                技术选型：<span class="highlight">Node.js ≥22</span> · <span class="highlight">TypeScript</span> · <span class="highlight">MIT 协议</span><br>
+                开发模式：稳定版 / 测试版 / 开发版 三通道发布
+            </p>
+        </div>
+    </div>
+
+    <!-- Slide 9: Summary -->
+    <div class="slide">
+        <div class="slide-number">9</div>
+        <h2>总结</h2>
+        <div class="content">
+            <p class="quote">
+                "OpenClaw 不仅是一个 AI 助手框架，<br>
+                更是本地优先、隐私可控的智能基础设施。"
+            </p>
+            <div class="feature-grid" style="margin-top: 60px;">
+                <div class="feature-card">
+                    <div class="feature-title">适合场景</div>
+                    <div class="feature-desc">个人助手 · 私有部署 · 多通道客服 · 自动化工作流</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-title">核心优势</div>
+                    <div class="feature-desc">本地优先 · 多通道原生 · 技能生态 · 跨平台节点</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 10: End -->
+    <div class="slide">
+        <div class="slide-number">10</div>
+        <h1 style="font-size: 96px;">🦞</h1>
+        <h2 style="margin-top: 40px;">Thank You</h2>
+        <p class="subtitle" style="margin-top: 30px;">
+            openclaw.ai · github.com/openclaw/openclaw · discord.gg/clawd
+        </p>
+        <p class="tagline">EXFOLIATE! EXFOLIATE!</p>
+    </div>
+
+</body>
+</html>
