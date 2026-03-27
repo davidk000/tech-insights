@@ -13,5 +13,5 @@ tech-insights/
 agents/
 config/
 data/
-reports/
+# reports/ - tracked (2026-03-27 unignored)
 scripts/
