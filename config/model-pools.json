@@ -1,0 +1,40 @@
+{
+  "version": 2,
+  "description": "四层模型池体系 - 高速池/智能池/文本池/视觉池",
+  "runtime_model": "minimax-cn/MiniMax-M2.7",
+  "pools": {
+    "fast": {
+      "name": "高速池",
+      "description": "快速响应，适合日常会话和简单任务",
+      "primary": "minimax-cn/MiniMax-M2.7",
+      "fallback": "minimax-portal/MiniMax-M2.5-lightning",
+      "keywords": ["快速", "简单", "闲聊", "日常", "查询"]
+    },
+    "smart": {
+      "name": "智能池",
+      "description": "复杂推理，适合分析、编程、推理任务",
+      "primary": "minimax-cn/MiniMax-M2.7",
+      "fallback": "minimax-portal/MiniMax-M2.5",
+      "keywords": ["分析", "推理", "编程", "代码", "复杂", "逻辑", "设计"]
+    },
+    "text": {
+      "name": "文本池",
+      "description": "长文本处理，适合文档、写作、总结",
+      "primary": "minimax-cn/MiniMax-M2.7",
+      "fallback": "minimax-portal/MiniMax-M2.5",
+      "keywords": ["文档", "长文本", "写作", "总结", "翻译", "摘要", "文章"]
+    },
+    "vision": {
+      "name": "视觉池",
+      "description": "图像视频处理，适合看图、生成图片/视频",
+      "primary": "minimax-cn/MiniMax-M2.7",
+      "fallback": "minimax-portal/MiniMax-M2.5",
+      "keywords": ["图片", "视频", "看图", "生成", "图像", "视觉", "画图"]
+    }
+  },
+  "routing_rules": {
+    "check_context_first": true,
+    "keyword_match_threshold": 0.6,
+    "default_pool": "fast"
+  }
+}
