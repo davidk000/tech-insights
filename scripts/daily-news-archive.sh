@@ -3,8 +3,8 @@
 # 归档到 tech-insights/daily-news/YYYY/MM/YYYY-MM-DD.md
 # 用法: ./daily-news-archive.sh "2026-03-24" "早报内容..."
 
-# 修复: tech-insights/ 在 .gitignore 中，改用 daily-news.local/ (tracked)
-ARCHIVE_DIR="$HOME/.openclaw/workspace/daily-news.local"
+# 修复: tech-insights/ 在 .gitignore 中，改用 daily-news/ (tracked)
+ARCHIVE_DIR="$HOME/.openclaw/workspace/daily-news"
 DATE="${1:-$(date +%Y-%m-%d)}"
 CONTENT="${2:-}"
 

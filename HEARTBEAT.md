@@ -27,10 +27,10 @@
 - [x] 飞书私信 (ou_8cf14197155da6ce81c563783e5847bc)
 - [ ] 飞书群（待配置）
 
-**归档路径：** `tech-insights/daily-news/YYYY/MM/YYYY-MM-DD.md`
+**归档路径：** `daily-news/YYYY/MM/YYYY-MM-DD.md`（已tracked；原 tech-insights/ 在 gitignore 中已修复）
 
 **执行动作：**
-1. exa_web_search 抓取内容 → 2. 提取标题摘要 → 3. 分类整理 → 4. 飞书推送 → 5. 归档至 tech-insights/daily-news/ → 6. git commit + push → 7. 飞书推送完成通知
+1. web_fetch 抓取内容 → 2. 提取标题摘要 → 3. 分类整理 → 4. 飞书推送 → 5. 归档至 daily-news/ → 6. git add + commit + push → 7. 飞书推送完成通知
 
 ---
 
@@ -38,10 +38,10 @@
 
 **执行方式：** exa_web_search 抓取 GitHub Trending
 
-**归档路径：** `tech-insights/daily-news/YYYY/MM/YYYY-MM-DD-github-trending.md`
+**归档路径：** `daily-news/YYYY/MM/YYYY-MM-DD-github-trending.md`
 
 **执行动作：**
-1. exa_web_search 抓取 → 2. 提取项目名/描述/Star/语言 → 3. 归档至 tech-insights/daily-news/ → 4. git commit + push
+1. exa_web_search 抓取 → 2. 提取项目名/描述/Star/语言 → 3. 归档至 daily-news/ → 4. git add + commit + push
 
 ---
 
@@ -49,10 +49,10 @@
 
 **执行方式：** exa_web_search 或 curl 直接请求 arXiv RSS
 
-**归档路径：** `tech-insights/daily-news/YYYY/MM/YYYY-MM-DD-arxiv.md`
+**归档路径：** `daily-news/YYYY/MM/YYYY-MM-DD-arxiv.md`
 
 **执行动作：**
-1. 抓取论文列表 → 2. 提取标题/作者/摘要/PDF链接 → 3. 筛选高相关性 → 4. 归档至 tech-insights/daily-news/ → 5. git commit + push
+1. 抓取论文列表 → 2. 提取标题/作者/摘要/PDF链接 → 3. 筛选高相关性 → 4. 归档至 daily-news/ → 5. git add + commit + push
 
 ---
 
@@ -60,10 +60,10 @@
 
 **执行方式：** exa_web_search + cto-advisor skill 生成技术洞察
 
-**归档路径：** `tech-insights/articles/YYYY/MM/YYYY-MM-DD-insight.md`
+**归档路径：** `articles/YYYY/MM/YYYY-MM-DD-insight.md`
 
 **执行动作：**
-1. 汇总资讯/项目/论文 → 2. 使用 cto-advisor skill 分析 → 3. 输出至 tech-insights/articles/ → 4. git commit + push
+1. 汇总资讯/项目/论文 → 2. 使用 cto-advisor skill 分析 → 3. 输出至 articles/ → 4. git add + commit + push
 
 **Job ID:** `f3d90517-7796-4ecc-a828-1ce9a6fde904` ✅
 
