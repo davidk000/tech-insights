@@ -15,11 +15,10 @@
 **内容源：**
 - https://www.infoq.cn/
 - https://aihot.today/
-- https://www.bestblogs.dev/articles
-- https://news.kagi.com/world/latest/
-- https://www.newsminimalist.com/
+- https://hnrss.org/frontpage（替代 News Minimalist 429）
 - https://www.buzzing.cc/
 - https://www.ifanr.com/
+- https://www.smzdm.com/
 
 **内容范围：** AI/大模型、互联网大厂、新产品、投融资、硬件芯片、科技热点
 
