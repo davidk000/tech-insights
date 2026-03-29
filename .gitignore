@@ -1,7 +1,7 @@
 # Keep articles (date-based archive) tracked
 # Ignore everything else
 
-memory/
+# memory/ - tracked (2026-03-29)
 raw-materials/
 skills/
 tech-insights/
@@ -10,8 +10,9 @@ tech-insights/
 .clawdhub/
 .clawhub/
 .openclaw/
-agents/
-config/
-data/
+# agents/ - tracked (2026-03-29)
+# config/ - tracked (2026-03-29)
+# data/ - tracked (2026-03-29)
+# memory/ - tracked (2026-03-29)
 # reports/ - tracked (2026-03-27 unignored)
-scripts/
+# scripts/ - tracked (2026-03-29)
