@@ -1,18 +1,29 @@
 # Keep articles (date-based archive) tracked
 # Ignore everything else
 
-# memory/ - tracked (2026-03-29)
-raw-materials/
-skills/
-tech-insights/
+# === Workspace structure ===
+memory/              # runtime logs and state - DO NOT TRACK
+data/                # runtime data - DO NOT TRACK
+life/                # personal notes - DO NOT TRACK
+node_modules/        # npm packages
+package.json
+package-lock.json
 .backups/
 .learnings/
+raw-materials/
+skills/
+tech-insights/        # nested git repo
+agents/              # tracked
+config/              # tracked
+scripts/             # tracked
+reports/             # tracked
+
+# === OpenClaw ===
 .clawdhub/
 .clawhub/
 .openclaw/
-# agents/ - tracked (2026-03-29)
-# config/ - tracked (2026-03-29)
-# data/ - tracked (2026-03-29)
-# memory/ - tracked (2026-03-29)
-# reports/ - tracked (2026-03-27 unignored)
-# scripts/ - tracked (2026-03-29)
+
+# === IDE ===
+.vscode/
+.DS_Store
+*.swp
