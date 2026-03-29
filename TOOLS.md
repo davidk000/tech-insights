@@ -37,11 +37,11 @@ _Skills are shared. Your setup is yours. Keeping them apart means you can update
 
 ### 本地脚本
 ```bash
+# 推送 tech-insights 到 GitHub + GitCode（双平台备份）
+push-all
+
 # 每日早报归档（写 tech-insights/daily-news/）
 ./scripts/daily-news-archive.sh "2026-03-27" "内容"
-
-# GitHub 同步（tech-insights 目录）
-cd ~/.openclaw/workspace/tech-insights && git add . && git commit -m "sync" && git push origin main
 
 # 智能备份
 ./scripts/smart-backup.sh
