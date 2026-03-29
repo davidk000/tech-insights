@@ -13,3 +13,4 @@ agents/
 config/
 data/
 reports/
+node_modules/
