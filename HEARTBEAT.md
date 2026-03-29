@@ -20,7 +20,7 @@
 - https://www.ifanr.com/
 - https://www.smzdm.com/
 
-**内容范围：** AI/大模型、互联网大厂、新产品、投融资、硬件芯片、科技热点
+**内容范围：** AI/大模型（重点含 Hugging Face 趋势模型）、互联网大厂、新产品、投融资、硬件芯片、科技热点
 
 **推送渠道：**
 - [x] 飞书私信 (ou_8cf14197155da6ce81c563783e5847bc)
@@ -67,6 +67,52 @@
 **Job ID:** `f3d90517-7796-4ecc-a828-1ce9a6fde904` ✅
 
 ---
+
+### 任务5（新增）：Hugging Face 趋势模型追踪 ⏰ 每周一 14:00
+
+**执行方式：** exa_web_search 搜索 Hugging Face 热门模型
+
+**内容源：**
+- exa_web_search: "site:huggingface.co/models trending top models 2026"
+- exa_web_search: "Hugging Face trending LLM vision language model 2026"
+
+**内容范围：** 当周 Hugging Face 热门模型、模型能力突破、新晋开源模型
+
+**推送渠道：** 飞书私信（ou_8cf14197155da6ce81c563783e5847bc）
+
+**归档路径：** `daily-news/YYYY/MM/YYYY-MM-DD-hf-trending.md`
+
+---
+
+### 任务6：关键词告警 ⏰ 每小时
+
+**执行方式：** Python 脚本扫描关键词库 + 飞书推送
+
+**内容源：**
+- IT桔子 / 36kr / 虎嗅（投融资）
+- 199IT / 天脉财经（半导体）
+- Hacker News RSS
+
+**关键词配置：** `~/.openclaw/config/keywords-monitor.yaml`
+
+**执行动作：**
+1. 扫描各数据源 → 2. 匹配关键词 → 3. 生成告警卡片 → 4. 飞书推送（P0/P1级）
+
+---
+
+### 任务6：投融资快讯 ⏰ 每日 09:00
+
+**执行方式：** Web Scraping + 飞书推送
+
+**内容源：**
+- IT桔子
+- 创投通（财联社）
+- SVTR.AI
+
+**归档路径：** `daily-news/vc/YYYY-MM-DD.md`
+
+**执行动作：**
+1. 抓取昨日投融资事件 → 2. 提取金额/轮次/行业 → 3. 飞书推送 → 4. 归档 → 5. git commit
 
 ## 每30分钟检查清单
 
