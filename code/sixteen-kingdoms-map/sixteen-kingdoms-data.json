@@ -1,0 +1,460 @@
+{
+  "_meta": {
+    "period": "十六国 (304-439)",
+    "description": "西晋末年至南北朝前期，北方少数民族建立的割据政权，以匈奴、鲜卑、羯、羌、氐五族为主",
+    "sources": [
+      "《十六国春秋》（崔鸿）",
+      "《晋书》载记",
+      "《资治通鉴》（司马光）",
+      "《中国通史》（范文澜）"
+    ]
+  },
+  "sixteenKingdoms": {
+    "description": "十六国（304-439）",
+    "dynasties": [
+      {
+        "id": "qianZhao",
+        "name": "前赵",
+        "color": "#e74c3c",
+        "start": 304,
+        "end": 329,
+        "founder": { "name": "刘渊", "title": "光文皇帝", "reign": "304-310" },
+        "lastRuler": { "name": "刘熙", "title": "末帝", "reign": "311-329" },
+        "territory": "并州/关中",
+        "ethnic": "匈奴",
+        "capital": "左国城→平阳→长安",
+        "collapsedBy": "后赵",
+        "rulers": [
+          { "name": "刘渊", "title": "光文皇帝", "reign": "304-310", "era": "永凤/河瑞" },
+          { "name": "刘和", "title": "废帝", "reign": "310", "era": "永凤" },
+          { "name": "刘聪", "title": "昭武皇帝", "reign": "310-318", "era": "光兴/嘉平/建元/麟嘉" },
+          { "name": "刘粲", "title": "隐帝", "reign": "318", "era": "汉昌" },
+          { "name": "刘曜", "title": "末帝", "reign": "318-329", "era": "光初" },
+          { "name": "刘熙", "title": "末帝", "reign": "329", "era": "光初" }
+        ],
+        "note": "刘渊以复汉为旗号，匈奴贵族。318年刘曜迁都长安，改国号赵。329年灭于后赵石勒"
+      },
+      {
+        "id": "houZhao",
+        "name": "后赵",
+        "color": "#9b59b6",
+        "start": 319,
+        "end": 351,
+        "founder": { "name": "石勒", "title": "明帝", "reign": "319-333" },
+        "lastRuler": { "name": "石鉴", "title": "末帝", "reign": "349-350" },
+        "territory": "北方大部",
+        "ethnic": "羯",
+        "capital": "襄国(邢台)/邺城",
+        "collapsedBy": "冉魏/前燕",
+        "rulers": [
+          { "name": "石勒", "title": "明帝", "reign": "319-333", "era": "太和/建平" },
+          { "name": "石弘", "title": "海阳王", "reign": "333-334", "era": "建平" },
+          { "name": "石虎", "title": "武帝", "reign": "334-349", "era": "建武/太宁" },
+          { "name": "石世", "title": "", "reign": "349", "era": "太宁" },
+          { "name": "石遵", "title": "", "reign": "349", "era": "太宁" },
+          { "name": "石鉴", "title": "末帝", "reign": "349-350", "era": "青龙" },
+          { "name": "石祗", "title": "", "reign": "350-351", "era": "永宁" }
+        ],
+        "note": "石勒是十六国中最成功的创业者之一，319年自称赵王，鼎盛时期统一北方大部。349年石虎死后诸子争位，内乱"
+      },
+      {
+        "id": "qianQin",
+        "name": "前秦",
+        "color": "#3498db",
+        "start": 351,
+        "end": 394,
+        "founder": { "name": "苻健", "title": "景明皇帝", "reign": "351-355" },
+        "lastRuler": { "name": "苻崇", "title": "末帝", "reign": "385-394" },
+        "territory": "北方/关中/西域",
+        "ethnic": "氐",
+        "capital": "长安",
+        "collapsedBy": "西秦/后秦",
+        "rulers": [
+          { "name": "苻健", "title": "景明皇帝", "reign": "351-355", "era": "皇始" },
+          { "name": "苻生", "title": "厉王", "reign": "355-357", "era": "寿光" },
+          { "name": "苻坚", "title": "宣昭皇帝", "reign": "357-385", "era": "永兴/甘露/建元" },
+          { "name": "苻丕", "title": "哀平皇帝", "reign": "384-386", "era": "太安/太元" },
+          { "name": "苻登", "title": "高帝", "reign": "386-394", "era": "太初/更始" },
+          { "name": "苻崇", "title": "末帝", "reign": "394", "era": "延初" }
+        ],
+        "note": "苻坚在位时任用王猛，灭前燕/前凉/代，统一北方。383年淝水之战大败后帝国崩溃"
+      },
+      {
+        "id": "houQin",
+        "name": "后秦",
+        "color": "#e67e22",
+        "start": 384,
+        "end": 417,
+        "founder": { "name": "姚苌", "title": "武昭皇帝", "reign": "384-394" },
+        "lastRuler": { "name": "姚泓", "title": "末帝", "reign": "416-417" },
+        "territory": "关中/河南",
+        "ethnic": "羌",
+        "capital": "长安",
+        "collapsedBy": "东晋/北魏",
+        "rulers": [
+          { "name": "姚苌", "title": "武昭皇帝", "reign": "384-394", "era": "白雀/建初" },
+          { "name": "姚兴", "title": "文桓皇帝", "reign": "394-416", "era": "皇初/弘始" },
+          { "name": "姚泓", "title": "末帝", "reign": "416-417", "era": "永和" }
+        ],
+        "note": "姚苌在淝水之战后叛前秦自立。姚兴时期后秦最强盛，417年刘裕北伐灭之"
+      },
+      {
+        "id": "xiQin",
+        "name": "西秦",
+        "color": "#f39c12",
+        "start": 385,
+        "end": 431,
+        "founder": { "name": "乞伏国仁", "title": "宣烈王", "reign": "385-388" },
+        "lastRuler": { "name": "乞伏暮末", "title": "末主", "reign": "428-431" },
+        "territory": "陇西/甘肃",
+        "ethnic": "鲜卑",
+        "capital": "勇士城→苑川→金城",
+        "collapsedBy": "夏/北魏",
+        "rulers": [
+          { "name": "乞伏国仁", "title": "宣烈王", "reign": "385-388", "era": "建义" },
+          { "name": "乞伏乾归", "title": "武元王", "reign": "388-412", "era": "太初/更始" },
+          { "name": "乞伏炽磐", "title": "文昭王", "reign": "412-428", "era": "永康/建弘" },
+          { "name": "乞伏暮末", "title": "末主", "reign": "428-431", "era": "永弘" }
+        ],
+        "note": "陇西鲜卑建立的政权，附庸于后秦期间曾中断。431年灭于夏"
+      },
+      {
+        "id": "qianLiang",
+        "name": "前凉",
+        "color": "#1abc9c",
+        "start": 301,
+        "end": 376,
+        "founder": { "name": "张轨", "title": "武穆公", "reign": "301-314" },
+        "lastRuler": { "name": "张天锡", "title": "末主", "reign": "363-376" },
+        "territory": "河西走廊/甘肃",
+        "ethnic": "汉",
+        "capital": "姑臧(武威)",
+        "collapsedBy": "前秦",
+        "rulers": [
+          { "name": "张轨", "title": "武穆公", "reign": "301-314", "era": "建兴" },
+          { "name": "张寔", "title": "昭王", "reign": "314-320", "era": "建兴" },
+          { "name": "张茂", "title": "成王", "reign": "320-324", "era": "建兴" },
+          { "name": "张骏", "title": "文王", "reign": "324-346", "era": "建兴/太元" },
+          { "name": "张重华", "title": "哀王", "reign": "346-353", "era": "永乐" },
+          { "name": "张曜灵", "title": "", "reign": "353", "era": "和平" },
+          { "name": "张祚", "title": "威王", "reign": "354-359", "era": "太始" },
+          { "name": "张玄靓", "title": "", "reign": "355-363", "era": "太始/建兴" },
+          { "name": "张天锡", "title": "末主", "reign": "363-376", "era": "太清/永康" }
+        ],
+        "note": "前凉是十六国中唯一的汉族政权，西晋亡后独立。376年苻坚灭前凉"
+      },
+      {
+        "id": "houLiang",
+        "name": "后凉",
+        "color": "#27ae60",
+        "start": 386,
+        "end": 403,
+        "founder": { "name": "吕光", "title": "武皇帝", "reign": "386-399" },
+        "lastRuler": { "name": "吕隆", "title": "末主", "reign": "401-403" },
+        "territory": "河西走廊",
+        "ethnic": "氐",
+        "capital": "姑臧(武威)",
+        "collapsedBy": "后秦/南凉/北凉",
+        "rulers": [
+          { "name": "吕光", "title": "武皇帝", "reign": "386-399", "era": "太安/麟嘉/龙飞" },
+          { "name": "吕绍", "title": "", "reign": "399", "era": "麟嘉" },
+          { "name": "吕纂", "title": "灵皇帝", "reign": "399-401", "era": "咸宁/天安" },
+          { "name": "吕隆", "title": "末主", "reign": "401-403", "era": "神鼎" }
+        ],
+        "note": "吕光征西域后回师建立。403年降于后秦，领土被南凉/北凉分割"
+      },
+      {
+        "id": "xiLiang",
+        "name": "西凉",
+        "color": "#e91e63",
+        "start": 400,
+        "end": 421,
+        "founder": { "name": "李暠", "title": "武昭王", "reign": "400-417" },
+        "lastRuler": { "name": "李恂", "title": "末主", "reign": "420-421" },
+        "territory": "敦煌/酒泉",
+        "ethnic": "汉",
+        "capital": "敦煌→酒泉",
+        "collapsedBy": "北凉/西凉",
+        "rulers": [
+          { "name": "李暠", "title": "武昭王", "reign": "400-417", "era": "庚子/建初" },
+          { "name": "李歆", "title": "悼王", "reign": "417-420", "era": "嘉兴/永建" },
+          { "name": "李恂", "title": "末主", "reign": "420-421", "era": "永建" }
+        ],
+        "note": "汉族政权，割据敦煌。420年李歆进攻北凉失败身亡，421年北凉灭西凉"
+      },
+      {
+        "id": "beiLiang",
+        "name": "北凉",
+        "color": "#8e44ad",
+        "start": 397,
+        "end": 439,
+        "founder": { "name": "段业", "title": "凉景王", "reign": "397-401" },
+        "lastRuler": { "name": "沮渠牧犍", "title": "哀王", "reign": "433-439" },
+        "territory": "河西走廊/张掖",
+        "ethnic": "卢水胡",
+        "capital": "张掖",
+        "collapsedBy": "北魏",
+        "rulers": [
+          { "name": "段业", "title": "凉景王", "reign": "397-401", "era": "神玺/天玺" },
+          { "name": "沮渠蒙逊", "title": "武宣王", "reign": "401-433", "era": "永安/玄始/承阳/义和/承和" },
+          { "name": "沮渠牧犍", "title": "哀王", "reign": "433-439", "era": "承和/永和" }
+        ],
+        "note": "397年卢水胡沮渠蒙逊拥立段业建立，401年蒙逊杀段业自立。439年北魏灭北凉，十六国时期结束"
+      },
+      {
+        "id": "nanLiang",
+        "name": "南凉",
+        "color": "#d35400",
+        "start": 397,
+        "end": 414,
+        "founder": { "name": "秃发乌孤", "title": "武王", "reign": "397-399" },
+        "lastRuler": { "name": "禿发褥襌", "title": "末主", "reign": "408-414" },
+        "territory": "青海/甘肃东部",
+        "ethnic": "鲜卑",
+        "capital": "廉川堡→乐都→西宁",
+        "collapsedBy": "西秦/夏",
+        "rulers": [
+          { "name": "秃发乌孤", "title": "武王", "reign": "397-399", "era": "太初" },
+          { "name": "秃发利鹿孤", "title": "康王", "reign": "399-402", "era": "建和" },
+          { "name": "禿发褥襌", "title": "景王", "reign": "402-414", "era": "嘉平" },
+          { "name": "禿发利鹿孤(复位)", "title": "", "reign": "402-414", "era": "" },
+          { "name": "禿发褥襌", "title": "末主", "reign": "414", "era": "" }
+        ],
+        "note": "397年秃发乌孤建立。414年西秦灭南凉"
+      },
+      {
+        "id": "xia",
+        "name": "夏",
+        "color": "#c0392b",
+        "start": 407,
+        "end": 431,
+        "founder": { "name": "赫连勃勃", "title": "武烈皇帝", "reign": "407-425" },
+        "lastRuler": { "name": "赫连定", "title": "平原王", "reign": "425-431" },
+        "territory": "河套/关中",
+        "ethnic": "匈奴(铁弗)",
+        "capital": "统万城(靖边)",
+        "collapsedBy": "北魏/吐谷浑",
+        "rulers": [
+          { "name": "赫连勃勃", "title": "武烈皇帝", "reign": "407-425", "era": "龙升/凤翔/昌武/真兴" },
+          { "name": "赫连昌", "title": "昌武王", "reign": "425-428", "era": "承光/太始" },
+          { "name": "赫连定", "title": "平原王", "reign": "428-431", "era": "胜光" }
+        ],
+        "note": "407年赫连勃勃叛后秦建立，筑统万城为都。431年西秦灭夏，但赫连定逃奔吐谷浑"
+      },
+      {
+        "id": "chengHan",
+        "name": "成汉",
+        "color": "#16a085",
+        "start": 304,
+        "end": 347,
+        "founder": { "name": "李雄", "title": "武帝", "reign": "304-334" },
+        "lastRuler": { "name": "李势", "title": "末主", "reign": "343-347" },
+        "territory": "四川/贵州",
+        "ethnic": "巴氐",
+        "capital": "成都",
+        "collapsedBy": "东晋",
+        "rulers": [
+          { "name": "李雄", "title": "武帝", "reign": "304-334", "era": "建元/晏平/玉衡" },
+          { "name": "李班", "title": "", "reign": "334", "era": "玉衡" },
+          { "name": "李期", "title": "幽王", "reign": "334-338", "era": "玉恒" },
+          { "name": "李寿", "title": "昭文皇帝", "reign": "338-343", "era": "汉德/嘉宁" },
+          { "name": "李势", "title": "末主", "reign": "343-347", "era": "太和/嘉宁" }
+        ],
+        "note": "304年李雄建立，是十六国中最早建国的。347年东晋恒温灭成汉"
+      },
+      {
+        "id": "qianYan",
+        "name": "前燕",
+        "color": "#2ecc71",
+        "start": 337,
+        "end": 370,
+        "founder": { "name": "慕容皝", "title": "文明皇帝", "reign": "337-348" },
+        "lastRuler": { "name": "慕容暐", "title": "幽皇帝", "reign": "360-370" },
+        "territory": "辽宁/河北/河南",
+        "ethnic": "鲜卑",
+        "capital": "龙城→邺城",
+        "collapsedBy": "前秦",
+        "rulers": [
+          { "name": "慕容皝", "title": "文明皇帝", "reign": "337-348", "era": "元玺/光寿" },
+          { "name": "慕容儁", "title": "景昭皇帝", "reign": "348-360", "era": "元玺/永寿/建熙" },
+          { "name": "慕容暐", "title": "幽皇帝", "reign": "360-370", "era": "建熙" }
+        ],
+        "note": "前燕在慕容恪/慕容垂辅政时最强盛，369年败于前秦，370年灭"
+      },
+      {
+        "id": "houYan",
+        "name": "后燕",
+        "color": "#27ae60",
+        "start": 384,
+        "end": 407,
+        "founder": { "name": "慕容垂", "title": "成武帝", "reign": "384-396" },
+        "lastRuler": { "name": "慕容熙", "title": "末帝", "reign": "401-407" },
+        "territory": "河北/山西/辽宁",
+        "ethnic": "鲜卑",
+        "capital": "中山→龙城",
+        "collapsedBy": "北燕/高句丽",
+        "rulers": [
+          { "name": "慕容垂", "title": "成武帝", "reign": "384-396", "era": "燕元/建兴" },
+          { "name": "慕容宝", "title": "惠愍皇帝", "reign": "396-398", "era": "永康/建初" },
+          { "name": "慕容盛", "title": "昭武皇帝", "reign": "398-401", "era": "建平/长乐/中兴" },
+          { "name": "慕容熙", "title": "末帝", "reign": "401-407", "era": "光始/建始" }
+        ],
+        "note": "384年慕容垂叛前秦建立，鼎盛时统治河北/山西。407年北燕取代后燕"
+      },
+      {
+        "id": "nanYan",
+        "name": "南燕",
+        "color": "#006400",
+        "start": 398,
+        "end": 410,
+        "founder": { "name": "慕容德", "title": "献武皇帝", "reign": "398-405" },
+        "lastRuler": { "name": "慕容超", "title": "末主", "reign": "405-410" },
+        "territory": "山东/河南",
+        "ethnic": "鲜卑",
+        "capital": "广固(青州)",
+        "collapsedBy": "东晋",
+        "rulers": [
+          { "name": "慕容德", "title": "献武皇帝", "reign": "398-405", "era": "燕元/建平" },
+          { "name": "慕容超", "title": "末主", "reign": "405-410", "era": "太上" }
+        ],
+        "note": "398年慕容德率众南迁建立。410年刘裕北伐灭南燕，是东晋历史上最成功的北伐之一"
+      },
+      {
+        "id": "beiYan",
+        "name": "北燕",
+        "color": "#1a5e20",
+        "start": 407,
+        "end": 436,
+        "founder": { "name": "高云", "title": "惠懿皇帝", "reign": "407-409" },
+        "lastRuler": { "name": "冯弘", "title": "文成皇帝", "reign": "430-436" },
+        "territory": "辽宁/河北",
+        "ethnic": "鲜卑(高氏)/汉(冯氏)",
+        "capital": "龙城",
+        "collapsedBy": "北魏",
+        "rulers": [
+          { "name": "高云", "title": "惠懿皇帝", "reign": "407-409", "era": "正始" },
+          { "name": "冯跋", "title": "文成皇帝", "reign": "409-430", "era": "太平" },
+          { "name": "冯弘", "title": "文成皇帝", "reign": "430-436", "era": "太兴" }
+        ],
+        "note": "407年高云建立（也称北燕），409年冯跋杀高云自立。436年北魏灭北燕"
+      }
+    ]
+  },
+
+  "fiveYan": {
+    "description": "五燕 - 鲜卑慕容氏建立的五个燕国政权",
+    "dynasties": [
+      {
+        "id": "qianYan_y",
+        "name": "前燕",
+        "color": "#2ecc71",
+        "start": 337,
+        "end": 370,
+        "founder": { "name": "慕容皝", "reign": "337-348" },
+        "lastRuler": { "name": "慕容暐", "reign": "360-370" },
+        "territory": "辽宁/河北/河南",
+        "ethnic": "鲜卑",
+        "capital": "龙城→邺城",
+        "collapsedBy": "前秦",
+        "note": "337年慕容皝自立，342年迁都龙城，350年慕容儁迁都邺城，370年灭于前秦"
+      },
+      {
+        "id": "houYan_y",
+        "name": "后燕",
+        "color": "#27ae60",
+        "start": 384,
+        "end": 407,
+        "founder": { "name": "慕容垂", "reign": "384-396" },
+        "lastRuler": { "name": "慕容熙", "reign": "401-407" },
+        "territory": "河北/山西/辽宁",
+        "ethnic": "鲜卑",
+        "capital": "中山→龙城",
+        "collapsedBy": "北燕",
+        "note": "384年慕容垂叛前秦建立，396年慕容垂死后后燕分裂，北魏占河北，后燕退守龙城"
+      },
+      {
+        "id": "nanYan_y",
+        "name": "南燕",
+        "color": "#006400",
+        "start": 398,
+        "end": 410,
+        "founder": { "name": "慕容德", "reign": "398-405" },
+        "lastRuler": { "name": "慕容超", "reign": "405-410" },
+        "territory": "山东/河南",
+        "ethnic": "鲜卑",
+        "capital": "广固(青州)",
+        "collapsedBy": "东晋",
+        "note": "398年慕容德南迁滑台称燕王，后迁广固，410年刘裕灭之"
+      },
+      {
+        "id": "xiYan",
+        "name": "西燕",
+        "color": "#228b22",
+        "start": 384,
+        "end": 394,
+        "founder": { "name": "慕容泓", "reign": "384" },
+        "lastRuler": { "name": "慕容永", "reign": "384-394" },
+        "territory": "山西/河南",
+        "ethnic": "鲜卑",
+        "capital": "长子(山西)",
+        "collapsedBy": "后燕",
+        "note": "384年慕容泓建立，后其弟慕容冲转战关中，慕容永最后定居长子。394年后燕慕容垂灭西燕"
+      },
+      {
+        "id": "beiYan_y",
+        "name": "北燕",
+        "color": "#1a5e20",
+        "start": 407,
+        "end": 436,
+        "founder": { "name": "高云/冯跋", "reign": "407-430" },
+        "lastRuler": { "name": "冯弘", "reign": "430-436" },
+        "territory": "辽宁/河北",
+        "ethnic": "鲜卑/汉",
+        "capital": "龙城",
+        "collapsedBy": "北魏",
+        "note": "407年高云杀慕容熙建立，409年冯跋即位。436年北魏攻占龙城，冯弘奔高句丽，北燕亡"
+      }
+    ],
+    "successionNote": "五燕均出自鲜卑慕容氏。前燕→西燕(独立)+后燕(慕容垂)。后燕→北燕(冯氏篡权)+南燕(慕容德南迁)。"
+  },
+
+  "majorEvents": [
+    { "year": 291, "text": "八王之乱起，西晋内战", "type": "internal" },
+    { "year": 304, "text": "刘渊建前赵(汉)，成汉李雄称帝", "type": "founding" },
+    { "year": 310, "text": "刘聪灭西晋", "type": "war" },
+    { "year": 311, "text": "永嘉之乱，晋怀帝被俘", "type": "war" },
+    { "year": 316, "text": "刘曜灭西晋", "type": "conquest" },
+    { "year": 319, "text": "石勒建后赵", "type": "founding" },
+    { "year": 329, "text": "后赵灭前赵", "type": "conquest" },
+    { "year": 337, "text": "慕容皝建前燕", "type": "founding" },
+    { "year": 347, "text": "东晋恒温灭成汉", "type": "conquest" },
+    { "year": 350, "text": "石虎死后后赵内乱", "type": "internal" },
+    { "year": 351, "text": "苻健建前秦", "type": "founding" },
+    { "year": 370, "text": "前秦灭前燕", "type": "conquest" },
+    { "year": 376, "text": "前秦灭前凉/代", "type": "conquest" },
+    { "year": 383, "text": "淝水之战，前秦大败", "type": "war" },
+    { "year": 384, "text": "慕容垂建后燕，慕容泓建西燕，姚苌建后秦", "type": "founding" },
+    { "year": 385, "text": "乞伏国仁建西秦", "type": "founding" },
+    { "year": 386, "text": "吕光建后凉", "type": "founding" },
+    { "year": 394, "text": "后燕灭西燕", "type": "conquest" },
+    { "year": 397, "text": "秃发乌孤建南凉，段业建北凉", "type": "founding" },
+    { "year": 400, "text": "李暠建西凉", "type": "founding" },
+    { "year": 401, "text": "北凉沮渠蒙逊杀段业自立", "type": "internal" },
+    { "year": 407, "text": "赫连勃勃建夏，冯跋建北燕，后燕亡", "type": "founding" },
+    { "year": 410, "text": "东晋刘裕灭南燕", "type": "conquest" },
+    { "year": 414, "text": "西秦灭南凉", "type": "conquest" },
+    { "year": 417, "text": "东晋刘裕灭后秦", "type": "conquest" },
+    { "year": 420, "text": "东晋灭西凉，刘裕建宋", "type": "conquest" },
+    { "year": 421, "text": "北凉灭西凉", "type": "conquest" },
+    { "year": 431, "text": "夏灭西秦，五燕仅存北燕", "type": "conquest" },
+    { "year": 436, "text": "北魏灭北燕", "type": "conquest" },
+    { "year": 439, "text": "北魏灭北凉，十六国时期结束", "type": "conquest" }
+  ],
+
+  "notes": [
+    { "item": "前凉", "note": "部分史家不计入十六国，但崔鸿《十六国春秋》将其列入。主要争议：前凉为汉族政权，与其他少数民族政权性质不同" },
+    { "item": "西燕", "note": "部分史家不列入十六国正统，因为存在时间短且与后燕同源。但《十六国春秋》收录" },
+    { "item": "代", "note": "部分版本将代国(拓跋猗卢/什翼犍)列入十六国，331-376年，363年迁都盛乐，被前秦灭。为北魏前身" },
+    { "item": "五燕关系", "note": "五燕皆鲜卑慕容氏：前燕→(西燕+后燕)，后燕→(南燕+北燕)。西燕未列入五燕传统说法，但同为慕容政权" }
+  ]
+}
