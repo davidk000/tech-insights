@@ -1,0 +1,354 @@
+{
+  "_meta": {
+    "period": "五代十国 (907-979)",
+    "description": "五代：中原更迭的五个正统王朝；十国：同期并存的十个地方政权",
+    "sources": [
+      "《旧五代史》（薛居正等）",
+      "《新五代史》（欧阳修）",
+      "《资治通鉴》（司马光）",
+      "《中国通史》（范文澜）"
+    ],
+    "notes": [
+      "十六国(304-439)与五代十国(907-979)是两个不同历史时期，本文件仅收录五代十国",
+      "五代均未完成统一，统治范围主要在北方黄河流域",
+      "十国中南唐、吴越、南汉实力较强；北汉最弱但存续最晚"
+    ]
+  },
+
+  "wuDai": {
+    "description": "五代 - 中原正统王朝",
+    "dynasties": [
+      {
+        "id": "houLiang",
+        "name": "后梁",
+        "color": "#e8b86d",
+        "start": 907,
+        "end": 923,
+        "founder": { "name": "朱温", "title": "太祖", "reign": "907-912" },
+        "lastRuler": { "name": "朱友贞", "title": "末帝", "reign": "913-923" },
+        "territory": "河南/山东/关中东部",
+        "ethnic": "汉",
+        "capital": "汴梁(开封)",
+        "collapsedBy": "后唐",
+        "rulers": [
+          { "name": "朱温", "title": "太祖", "reign": "907-912", "era": ["开平(907-911)", "乾化(911-912)"] },
+          { "name": "朱友珪", "title": "郢王/废帝", "reign": "912-913", "era": ["凤历(913)"] },
+          { "name": "朱友贞", "title": "末帝", "reign": "913-923", "era": ["乾化(913-915)", "贞明(915-921)", "龙德(921-923)"] }
+        ]
+      },
+      {
+        "id": "houTang",
+        "name": "后唐",
+        "color": "#7eb8da",
+        "start": 923,
+        "end": 936,
+        "founder": { "name": "李存勖", "title": "庄宗", "reign": "923-926" },
+        "lastRuler": { "name": "李从珂", "title": "末帝", "reign": "934-936" },
+        "territory": "北方大部",
+        "ethnic": "沙陀",
+        "capital": "洛阳",
+        "collapsedBy": "后晋",
+        "rulers": [
+          { "name": "李存勖", "title": "庄宗", "reign": "923-926", "era": ["同光(923-926)"] },
+          { "name": "李嗣源", "title": "明宗", "reign": "926-933", "era": ["天成(926-930)", "长兴(930-933)"] },
+          { "name": "李从厚", "title": "闵帝", "reign": "933-934", "era": ["应顺(934)"] },
+          { "name": "李从珂", "title": "末帝", "reign": "934-936", "era": ["清泰(934-936)"] }
+        ]
+      },
+      {
+        "id": "houJin",
+        "name": "后晋",
+        "color": "#c9a0dc",
+        "start": 936,
+        "end": 947,
+        "founder": { "name": "石敬瑭", "title": "高祖", "reign": "936-942" },
+        "lastRuler": { "name": "石重贵", "title": "出帝", "reign": "942-947" },
+        "territory": "北方",
+        "ethnic": "沙陀",
+        "capital": "汴梁(开封)",
+        "collapsedBy": "契丹(辽)/后汉",
+        "rulers": [
+          { "name": "石敬瑭", "title": "高祖", "reign": "936-942", "era": ["天福(936-944)"] },
+          { "name": "石重贵", "title": "出帝", "reign": "942-947", "era": ["天福(942-944)", "开运(944-947)"] }
+        ],
+        "note": "石敬瑭以燕云十六州换取契丹支持，947年辽灭后晋"
+      },
+      {
+        "id": "houHan",
+        "name": "后汉",
+        "color": "#98d982",
+        "start": 947,
+        "end": 951,
+        "founder": { "name": "刘知远", "title": "高祖", "reign": "947-948" },
+        "lastRuler": { "name": "刘承祐", "title": "隐帝", "reign": "948-951" },
+        "territory": "北方",
+        "ethnic": "沙陀",
+        "capital": "汴梁(开封)",
+        "collapsedBy": "后周",
+        "rulers": [
+          { "name": "刘知远", "title": "高祖", "reign": "947-948", "era": ["天福(947-948)"] },
+          { "name": "刘承祐", "title": "隐帝", "reign": "948-951", "era": ["乾祐(948-951)"] }
+        ]
+      },
+      {
+        "id": "houZhou",
+        "name": "后周",
+        "color": "#f0a070",
+        "start": 951,
+        "end": 960,
+        "founder": { "name": "郭威", "title": "太祖", "reign": "951-954" },
+        "lastRuler": { "name": "柴宗训", "title": "恭帝", "reign": "959-960" },
+        "territory": "北方",
+        "ethnic": "汉",
+        "capital": "汴梁(开封)",
+        "collapsedBy": "宋(北宋)",
+        "rulers": [
+          { "name": "郭威", "title": "太祖", "reign": "951-954", "era": ["广顺(951-954)"] },
+          { "name": "柴荣", "title": "世宗", "reign": "954-959", "era": ["显德(954-959)"] },
+          { "name": "柴宗训", "title": "恭帝", "reign": "959-960", "era": ["显德(959-960)"] }
+        ],
+        "note": "周世宗柴荣被誉为五代最有作为的君主，959年北伐契丹途中病倒"
+      }
+    ]
+  },
+
+  "shiGuo": {
+    "description": "十国 - 地方政权",
+    "dynasties": [
+      {
+        "id": "qianShu",
+        "name": "前蜀",
+        "color": "#ff6b6b",
+        "start": 907,
+        "end": 925,
+        "founder": { "name": "王建", "title": "前主", "reign": "907-918" },
+        "lastRuler": { "name": "王衍", "title": "后主", "reign": "918-925" },
+        "territory": "四川盆地",
+        "ethnic": "汉",
+        "capital": "成都",
+        "collapsedBy": "后唐",
+        "rulers": [
+          { "name": "王建", "title": "前主", "reign": "907-918", "era": ["武成(908-910)", "永平(911-915)", "通正(916)", "天汉(917)", "光天(918)"] },
+          { "name": "王衍", "title": "后主", "reign": "918-925", "era": ["乾德(919-924)", "咸康(925)"] }
+        ],
+        "note": "925年后唐郭崇韬灭前蜀；王衍降后被杀"
+      },
+      {
+        "id": "houShu",
+        "name": "后蜀",
+        "color": "#c44",
+        "start": 934,
+        "end": 966,
+        "founder": { "name": "孟知祥", "title": "前主", "reign": "934" },
+        "lastRuler": { "name": "孟昶", "title": "后主", "reign": "934-966" },
+        "territory": "四川盆地",
+        "ethnic": "汉",
+        "capital": "成都",
+        "collapsedBy": "宋(北宋)",
+        "rulers": [
+          { "name": "孟知祥", "title": "前主", "reign": "934", "era": ["明德(934)"] },
+          { "name": "孟昶", "title": "后主", "reign": "934-966", "era": ["明德(934-937)", "广政(938-965)"] }
+        ],
+        "note": "孟知祥934年建后蜀，当年去世；子孟昶继立至966年降宋"
+      },
+      {
+        "id": "nanWu",
+        "name": "南吴",
+        "color": "#ffd93d",
+        "start": 907,
+        "end": 937,
+        "founder": { "name": "杨行密", "title": "武义帝", "reign": "902-905" },
+        "lastRuler": { "name": "杨溥", "title": "末帝", "reign": "920-937" },
+        "territory": "江苏/安徽/江西",
+        "ethnic": "汉",
+        "capital": "广陵(扬州)/金陵(南京)",
+        "collapsedBy": "南唐",
+        "rulers": [
+          { "name": "杨行密", "title": "武义帝", "reign": "902-905", "era": ["唐封吴王"] },
+          { "name": "杨渥", "title": "末帝", "reign": "905-908", "era": ["隆平(905-908)"] },
+          { "name": "杨隆演", "title": "宣帝", "reign": "908-920", "era": ["武义(908-910)", "顺义(911-920)"] },
+          { "name": "杨溥", "title": "末帝", "reign": "920-927", "era": ["顺义(920-927)", "乾贞(927-929)", "大和(929-935)", "天祚(935-937)"] }
+        ],
+        "note": "南吴实际未称帝，以唐封吴王名义统治；937年权臣李昪迫杨溥禅让建南唐"
+      },
+      {
+        "id": "nanTang",
+        "name": "南唐",
+        "color": "#ff9f43",
+        "start": 937,
+        "end": 975,
+        "founder": { "name": "李昪", "title": "烈祖", "reign": "937-943" },
+        "lastRuler": { "name": "李煜", "title": "后主", "reign": "961-975" },
+        "territory": "江苏/江西/福建/安徽",
+        "ethnic": "汉",
+        "capital": "金陵(南京)",
+        "collapsedBy": "宋(北宋)",
+        "rulers": [
+          { "name": "李昪", "title": "烈祖", "reign": "937-943", "era": ["昇元(937-943)"] },
+          { "name": "李璟", "title": "元宗", "reign": "943-961", "era": ["保大(943-957)", "中兴(958)", "交泰(958)", "显德(958-961)"] },
+          { "name": "李煜", "title": "后主", "reign": "961-975", "era": ["开宝(961-975)"] }
+        ],
+        "note": "李煜即南唐后主，以词著称；975年宋曹彬攻破金陵，南唐亡"
+      },
+      {
+        "id": "yueYue",
+        "name": "吴越",
+        "color": "#a29bfe",
+        "start": 907,
+        "end": 978,
+        "founder": { "name": "钱镠", "title": "武肃王", "reign": "907-932" },
+        "lastRuler": { "name": "钱俶", "title": "忠逊王", "reign": "948-978" },
+        "territory": "浙江/福建北部",
+        "ethnic": "汉",
+        "capital": "杭州",
+        "collapsedBy": "宋(北宋)",
+        "rulers": [
+          { "name": "钱镠", "title": "武肃王", "reign": "907-932", "era": ["宝大(924-925)", "宝正(926-932)"] },
+          { "name": "钱元瓘", "title": "文穆王", "reign": "932-941", "era": ["天福(932-941)"] },
+          { "name": "钱弘佐", "title": "忠献王", "reign": "941-947", "era": ["开运(944-947)"] },
+          { "name": "钱弘琮", "title": "忠逊王", "reign": "947-951", "era": ["乾祐(948-951)"] },
+          { "name": "钱弘俶", "title": "忠懿王", "reign": "951-978", "era": ["太平(956-958)", "显德(958-961)", "开宝(961-978)"] }
+        ],
+        "note": "钱镠修筑海塘（钱塘江堤坝），开发杭州；吴越是十国中经济最发达地区之一；978年钱俶纳土归宋"
+      },
+      {
+        "id": "minGuo",
+        "name": "闽",
+        "color": "#74b9ff",
+        "start": 909,
+        "end": 945,
+        "founder": { "name": "王审知", "title": "闽太祖", "reign": "909-925" },
+        "lastRuler": { "name": "王延政", "title": "末帝", "reign": "943-945" },
+        "territory": "福建",
+        "ethnic": "汉",
+        "capital": "福州",
+        "collapsedBy": "南唐/吴越",
+        "rulers": [
+          { "name": "王审知", "title": "太祖", "reign": "909-925", "era": ["开平(909-911)", "乾化(911-913)", "贞明(915-921)", "龙德(921-923)", "同光(923-925)"] },
+          { "name": "王延翰", "title": "嗣王", "reign": "925-927", "era": ["永和(925-927)"] },
+          { "name": "王延钧", "title": "惠宗", "reign": "927-935", "era": ["龙启(933-935)", "永和(935)"] },
+          { "name": "王昶", "title": "康宗", "reign": "935-939", "era": ["通文(936-939)"] },
+          { "name": "王延曦", "title": "景宗", "reign": "939-944", "era": ["永隆(939-944)"] },
+          { "name": "王延政", "title": "末帝", "reign": "943-945", "era": ["天德(943-945)"] }
+        ],
+        "note": "闽国内乱，943年王延政建殷国，945年南唐灭闽；部分领土后被吴越占领"
+      },
+      {
+        "id": "nanChu",
+        "name": "楚",
+        "color": "#55efc4",
+        "start": 907,
+        "end": 951,
+        "founder": { "name": "马殷", "title": "武穆王", "reign": "907-930" },
+        "lastRuler": { "name": "马希崇", "title": "末王", "reign": "951" },
+        "territory": "湖南",
+        "ethnic": "汉",
+        "capital": "长沙",
+        "collapsedBy": "南唐/南唐+宋",
+        "rulers": [
+          { "name": "马殷", "title": "武穆王", "reign": "907-930", "era": ["唐封楚王"] },
+          { "name": "马希声", "title": "衡阳王", "reign": "930-932", "era": ["长兴(930-932)"] },
+          { "name": "马希范", "title": "文昭王", "reign": "932-947", "era": ["乾祐(932-947)"] },
+          { "name": "马希广", "title": "废王", "reign": "947-950", "era": ["乾祐(947-950)"] },
+          { "name": "马希萼", "title": "恭王", "reign": "950-951", "era": ["保宁(950-951)"] },
+          { "name": "马希崇", "title": "末王", "reign": "951", "era": ["广顺(951)"] }
+        ],
+        "note": "楚国后期诸子争位，950-951年南唐趁乱灭楚；但湖南不久被宋接收"
+      },
+      {
+        "id": "nanHan",
+        "name": "南汉",
+        "color": "#fd79a8",
+        "start": 917,
+        "end": 971,
+        "founder": { "name": "刘龑", "title": "高祖", "reign": "917-942" },
+        "lastRuler": { "name": "刘鋹", "title": "末帝", "reign": "958-971" },
+        "territory": "广东/广西/海南",
+        "ethnic": "汉",
+        "capital": "广州(兴王府)",
+        "collapsedBy": "宋(北宋)",
+        "rulers": [
+          { "name": "刘龑", "title": "高祖", "reign": "917-942", "era": ["乾亨(917-925)", "大有(926-942)"] },
+          { "name": "刘玢", "title": "殇帝", "reign": "942-943", "era": ["光天(942-943)"] },
+          { "name": "刘晟", "title": "中宗", "reign": "943-958", "era": ["乾和(943-958)"] },
+          { "name": "刘鋹", "title": "末帝", "reign": "958-971", "era": ["大宝(958-971)"] }
+        ],
+        "note": "南汉以广州为中心，积极发展海上贸易；刘鋹宠信宦官，970年宋潘美南下，971年灭南汉"
+      },
+      {
+        "id": "beiHan",
+        "name": "北汉",
+        "color": "#636e72",
+        "start": 951,
+        "end": 979,
+        "founder": { "name": "刘崇", "title": "世祖", "reign": "951-954" },
+        "lastRuler": { "name": "刘继元", "title": "英武帝", "reign": "968-979" },
+        "territory": "山西(太原一带)",
+        "ethnic": "沙陀",
+        "capital": "太原",
+        "collapsedBy": "宋(北宋)",
+        "rulers": [
+          { "name": "刘崇", "title": "世祖", "reign": "951-954", "era": ["乾祐(951-954)"] },
+          { "name": "刘承钧", "title": "睿宗", "reign": "954-970", "era": ["天会(955-970)"] },
+          { "name": "刘继恩", "title": "英帝", "reign": "970", "era": ["天会(970)"] },
+          { "name": "刘继元", "title": "英武帝", "reign": "968-979", "era": ["天会(968-970)", "广运(974-979)"] }
+        ],
+        "note": "北汉是十国中最晚灭亡的政权，依附契丹；979年宋太宗亲征太原，北汉亡，五代十国结束"
+      },
+      {
+        "id": "nanPing",
+        "name": "南平(荆南)",
+        "color": "#b2bec3",
+        "start": 924,
+        "end": 963,
+        "founder": { "name": "高季兴", "title": "南平王", "reign": "924-929" },
+        "lastRuler": { "name": "高继冲", "title": "末主", "reign": "962-963" },
+        "territory": "湖北(江陵)",
+        "ethnic": "汉",
+        "capital": "江陵",
+        "collapsedBy": "宋(北宋)",
+        "rulers": [
+          { "name": "高季兴", "title": "南平王", "reign": "924-929", "era": ["唐封南平王"] },
+          { "name": "高从诲", "title": "贞懿王", "reign": "929-948", "era": ["乾祐(929-948)"] },
+          { "name": "高保融", "title": "贞宣王", "reign": "948-960", "era": ["显德(959-960)"] },
+          { "name": "高保勖", "title": "恭王", "reign": "960-962", "era": ["建隆(960-962)"] },
+          { "name": "高继冲", "title": "末主", "reign": "962-963", "era": ["乾德(962-963)"] }
+        ],
+        "note": "南平是十国中最弱小的政权之一，963年宋假道灭南平，统一湖南和湖北"
+      }
+    ]
+  },
+
+  "majorEvents": [
+    { "year": 907, "text": "朱温建后梁，唐朝灭亡，五代十国开始", "type": "founding" },
+    { "year": 907, "text": "钱镠建吴越、马殷建楚国、杨行密建南吴", "type": "founding" },
+    { "year": 909, "text": "王审知建闽国", "type": "founding" },
+    { "year": 917, "text": "刘龑建南汉", "type": "founding" },
+    { "year": 923, "text": "李存勖灭后梁建后唐", "type": "conquest" },
+    { "year": 924, "text": "高季兴建南平", "type": "founding" },
+    { "year": 925, "text": "后唐灭前蜀", "type": "conquest" },
+    { "year": 934, "text": "孟知祥建后蜀", "type": "founding" },
+    { "year": 936, "text": "石敬瑭建后晋，燕云十六州归契丹", "type": "founding" },
+    { "year": 937, "text": "李昪灭南吴建南唐", "type": "conquest" },
+    { "year": 943, "text": "南唐灭闽(殷国)", "type": "conquest" },
+    { "year": 947, "text": "契丹灭后晋，刘知远建后汉", "type": "conquest" },
+    { "year": 951, "text": "郭威建后周，北汉建", "type": "founding" },
+    { "year": 951, "text": "南唐灭楚国", "type": "conquest" },
+    { "year": 955, "text": "后周世宗柴荣开始显德改革", "type": "reform" },
+    { "year": 959, "text": "周世宗北伐契丹，收复三关", "type": "war" },
+    { "year": 960, "text": "陈桥兵变，赵匡胤建北宋", "type": "founding" },
+    { "year": 963, "text": "宋灭南平", "type": "conquest" },
+    { "year": 965, "text": "宋灭后蜀", "type": "conquest" },
+    { "year": 971, "text": "宋灭南汉", "type": "conquest" },
+    { "year": 975, "text": "宋灭南唐", "type": "conquest" },
+    { "year": 978, "text": "吴越纳土归宋", "type": "surrender" },
+    { "year": 979, "text": "宋灭北汉，五代十国结束", "type": "conquest" }
+  ],
+
+  "corrections": [
+    { "item": "南吴开国", "original": "907年 杨行密", "correct": "902年 杨行密受封吴王，实际建立；907年朱温灭唐后正式独立建国", "source": "《资治通鉴》" },
+    { "item": "后蜀孟知祥", "original": "在位934-966", "correct": "孟知祥934年建后蜀，当年去世；实际统治者是其子孟昶在位934-966", "source": "《旧五代史·后蜀世家》" },
+    { "item": "吴越钱俶", "original": "钱镠->钱元瓘->钱弘佐->钱弘琮->钱弘俶", "correct": "钱镠->钱元瓘->钱弘佐->钱弘琮->钱弘俶(钱俶)，世系正确但需注意钱俶非钱镠直系后裔", "source": "《十国春秋》" },
+    { "item": "闽国", "original": "909-945", "correct": "正确；王审知909年封闽王，实际建立独立政权", "source": "《资治通鉴》" }
+  ]
+}

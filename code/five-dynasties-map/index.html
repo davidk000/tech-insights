@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>五代十国 · 疆域变迁互动地图</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --font: "PingFang SC", "Microsoft YaHei", sans-serif;
+    
+    --liang: #e8b86d;
+    --tang: #7eb8da;
+    --jin: #c9a0dc;
+    --han: #98d982;
+    --zhou: #f0a070;
+    --shu-qian: #ff6b6b;
+    --shu-hou: #c44;
+    --wu: #ffd93d;
+    --tang-south: #ff9f43;
+    --yue: #a29bfe;
+    --min: #74b9ff;
+    --chu: #55efc4;
+    --nanhan: #fd79a8;
+    --beihan: #636e72;
+    --nanping: #b2bec3;
+    --zhao: #dfe6e9;
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  header {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--panel);
+    z-index: 100;
+  }
+
+  header h1 {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .dynasty-legend {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-size: 11px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 3px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+
+  .legend-item:hover { background: rgba(255,255,255,0.08); }
+  .legend-item.inactive { opacity: 0.3; }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #map-container {
+    flex: 1;
+    position: relative;
+  }
+
+  #map {
+    width: 100%;
+    height: 100%;
+  }
+
+  .region {
+    cursor: pointer;
+    transition: opacity 0.3s, transform 0.3s;
+    transform-origin: center;
+  }
+
+  .region:hover { filter: brightness(1.2); }
+  .region.inactive { opacity: 0.15; pointer-events: none; }
+
+  .region-label {
+    font-size: 11px;
+    fill: #fff;
+    text-anchor: middle;
+    pointer-events: none;
+    font-weight: 500;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  }
+
+  .tooltip {
+    position: fixed;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 13px;
+    max-width: 280px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 1000;
+    line-height: 1.6;
+  }
+
+  .tooltip.visible { opacity: 1; }
+
+  .tooltip h3 {
+    font-size: 15px;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tooltip .dynasty-name {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+
+  .tooltip-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 4px 0;
+    color: var(--text-dim);
+  }
+
+  .tooltip-row span:last-child { color: var(--text); }
+
+  .info-panel {
+    width: 320px;
+    background: var(--panel);
+    border-left: 1px solid var(--border);
+    padding: 0;
+    overflow-y: auto;
+    transition: width 0.3s;
+  }
+
+  .info-panel.collapsed { width: 0; padding: 0; overflow: hidden; }
+
+  .panel-section {
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .panel-section h2 {
+    font-size: 13px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .current-year {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .current-era {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+
+  .ruler-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ruler-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.03);
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+
+  .ruler-item:hover { background: rgba(255,255,255,0.08); }
+  .ruler-item.active { background: rgba(255,255,255,0.12); }
+
+  .ruler-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .ruler-info { flex: 1; min-width: 0; }
+  .ruler-name { font-weight: 600; font-size: 14px; }
+  .ruler-reign { font-size: 12px; color: var(--text-dim); }
+
+  .timeline-controls {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+    background: var(--panel);
+  }
+
+  .year-markers {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    padding: 0 2px;
+  }
+
+  .timeline-track {
+    position: relative;
+    height: 48px;
+    display: flex;
+    align-items: center;
+  }
+
+  .timeline-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .timeline-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #58a6ff, #7eb8da);
+    border-radius: 3px;
+    transition: width 0.1s;
+  }
+
+  .timeline-input {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 48px;
+    opacity: 0;
+    cursor: pointer;
+    -webkit-appearance: none;
+  }
+
+  .timeline-thumb {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    pointer-events: none;
+    transition: left 0.1s;
+  }
+
+  .tick-marks {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2px;
+    pointer-events: none;
+  }
+
+  .tick {
+    width: 2px;
+    height: 12px;
+    background: var(--border);
+    border-radius: 1px;
+  }
+
+  .tick.major { height: 18px; background: var(--text-dim); }
+
+  .play-controls {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    justify-content: center;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn:hover { background: rgba(255,255,255,0.08); }
+  .btn.primary { background: #238636; border-color: #238636; }
+  .btn.primary:hover { background: #2ea043; }
+
+  .speed-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .speed-btn {
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-dim);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+    transition: all 0.2s;
+  }
+
+  .speed-btn.active {
+    background: rgba(255,255,255,0.15);
+    color: var(--text);
+    border-color: var(--text-dim);
+  }
+
+  .collapse-btn {
+    position: absolute;
+    right: 320px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 48px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    transition: all 0.3s;
+    z-index: 10;
+  }
+
+  .collapse-btn:hover { background: rgba(255,255,255,0.08); color: var(--text); }
+  .info-panel.collapsed + .collapse-btn { right: 0; }
+
+  .dynasty-events {
+    margin-top: 12px;
+  }
+
+  .event-item {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 12px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .event-year {
+    color: var(--text-dim);
+    flex-shrink: 0;
+    width: 36px;
+  }
+
+  .event-desc { color: var(--text); line-height: 1.5; }
+
+  .fade-overlay {
+    position: absolute;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .playing .current-year {
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🦞 五代十国 · 疆域变迁 (907-979)</h1>
+  <div class="dynasty-legend" id="legend"></div>
+</header>
+
+<main>
+  <div id="map-container">
+    <svg id="map" viewBox="0 0 800 600"></svg>
+  </div>
+  
+  <button class="collapse-btn" id="collapseBtn">›</button>
+  
+  <div class="info-panel" id="infoPanel">
+    <div class="panel-section">
+      <h2>当前年份</h2>
+      <div class="current-year" id="currentYear">907</div>
+      <div class="current-era" id="currentEra">后梁开国</div>
+    </div>
+    
+    <div class="panel-section">
+      <h2>五代政权</h2>
+      <div class="ruler-list" id="wuDaiRulers"></div>
+    </div>
+    
+    <div class="panel-section">
+      <h2>十国政权</h2>
+      <div class="ruler-list" id="shiGuoRulers"></div>
+    </div>
+    
+    <div class="panel-section">
+      <h2>重大事件</h2>
+      <div class="dynasty-events" id="dynastyEvents"></div>
+    </div>
+  </div>
+</main>
+
+<div class="timeline-controls">
+  <div class="year-markers">
+    <span>907</span>
+    <span>920</span>
+    <span>940</span>
+    <span>960</span>
+    <span>979</span>
+  </div>
+  <div class="timeline-track">
+    <div class="timeline-bar">
+      <div class="timeline-progress" id="timelineProgress"></div>
+    </div>
+    <input type="range" class="timeline-input" id="timelineInput" min="907" max="979" value="907" step="1">
+    <div class="timeline-thumb" id="timelineThumb"></div>
+    <div class="tick-marks">
+      <div class="tick major"></div>
+      <div class="tick"></div>
+      <div class="tick"></div>
+      <div class="tick major"></div>
+      <div class="tick"></div>
+      <div class="tick"></div>
+      <div class="tick major"></div>
+      <div class="tick"></div>
+      <div class="tick"></div>
+      <div class="tick major"></div>
+    </div>
+  </div>
+  <div class="play-controls">
+    <button class="btn" id="prevBtn">‹ 上一年</button>
+    <button class="btn primary" id="playBtn">▶ 播放</button>
+    <button class="btn" id="nextBtn">下一年 ›</button>
+    <button class="btn" id="resetBtn">重置</button>
+    <div class="speed-control">
+      <span>速度：</span>
+      <button class="speed-btn" data-speed="0.5">0.5x</button>
+      <button class="speed-btn active" data-speed="1">1x</button>
+      <button class="speed-btn" data-speed="2">2x</button>
+      <button class="speed-btn" data-speed="4">4x</button>
+    </div>
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+// ============ DATA ============
+const DYNASTIES = {
+  houLiang: {
+    name: "后梁", color: "#e8b86d", start: 907, end: 923,
+    territory: "河南/山东/关中东部", ethnic: "汉", collapsed: "后唐",
+    founders: [{name:"朱温",reign:"907-912",era:"开平"},{name:"朱友珪",reign:"912-913",era:"凤历"},{name:"朱友贞",reign:"913-923",era:"乾化"}]
+  },
+  houTang: {
+    name: "后唐", color: "#7eb8da", start: 923, end: 936,
+    territory: "北方大部", ethnic: "沙陀", collapsed: "后晋",
+    founders: [{name:"李存勖",reign:"923-926",era:"同光"},{name:"李嗣源",reign:"926-933",era:"天成"},{name:"李从厚",reign:"933-934",era:"应顺"},{name:"李从珂",reign:"934-936",era:"清泰"}]
+  },
+  houJin: {
+    name: "后晋", color: "#c9a0dc", start: 936, end: 947,
+    territory: "北方", ethnic: "沙陀", collapsed: "契丹(辽)/后汉",
+    founders: [{name:"石敬瑭",reign:"936-942",era:"天福"},{name:"石重贵",reign:"942-947",era:"天福"}]
+  },
+  houHan: {
+    name: "后汉", color: "#98d982", start: 947, end: 951,
+    territory: "北方", ethnic: "沙陀", collapsed: "后周",
+    founders: [{name:"刘知远",reign:"947-948",era:"天福"},{name:"刘承祐",reign:"948-951",era:"乾祐"}]
+  },
+  houZhou: {
+    name: "后周", color: "#f0a070", start: 951, end: 960,
+    territory: "北方", ethnic: "汉", collapsed: "宋(北宋)",
+    founders: [{name:"郭威",reign:"951-954",era:"广顺"},{name:"柴荣",reign:"954-959",era:"显德"},{name:"柴宗训",reign:"959-960",era:"显德"}]
+  },
+  qianShu: {
+    name: "前蜀", color: "#ff6b6b", start: 907, end: 925,
+    territory: "四川盆地", ethnic: "汉", collapsed: "后唐",
+    founders: [{name:"王建",reign:"907-918",era:"武成"},{name:"王衍",reign:"918-925",era:"乾德"}]
+  },
+  houShu: {
+    name: "后蜀", color: "#c44", start: 934, end: 966,
+    territory: "四川盆地", ethnic: "汉", collapsed: "宋(北宋)",
+    founders: [{name:"孟知祥",reign:"934",era:"明德"},{name:"孟昶",reign:"934-966",era:"明德"}]
+  },
+  nanWu: {
+    name: "南吴", color: "#ffd93d", start: 907, end: 937,
+    territory: "江苏/安徽/江西", ethnic: "汉", collapsed: "南唐",
+    founders: [{name:"杨行密",reign:"902-905",era:"唐封吴王"},{name:"杨渥",reign:"905-908",era:"隆平"},{name:"杨隆演",reign:"908-920",era:"武义"},{name:"杨溥",reign:"920-927",era:"顺义"}]
+  },
+  nanTang: {
+    name: "南唐", color: "#ff9f43", start: 937, end: 975,
+    territory: "江苏/江西/福建/安徽", ethnic: "汉", collapsed: "宋(北宋)",
+    founders: [{name:"李昪",reign:"937-943",era:"昇元"},{name:"李璟",reign:"943-961",era:"保大"},{name:"李煜",reign:"961-975",era:"开宝"}]
+  },
+  yueYue: {
+    name: "吴越", color: "#a29bfe", start: 907, end: 978,
+    territory: "浙江/福建北部", ethnic: "汉", collapsed: "宋(北宋)",
+    founders: [{name:"钱镠",reign:"907-932",era:"宝大"},{name:"钱元瓘",reign:"932-941",era:"天福"},{name:"钱弘佐",reign:"941-947",era:"开运"},{name:"钱弘琮",reign:"947-951",era:"乾祐"},{name:"钱弘俶",reign:"951-978",era:"太平"}]
+  },
+  minGuo: {
+    name: "闽", color: "#74b9ff", start: 909, end: 945,
+    territory: "福建", ethnic: "汉", collapsed: "南唐/吴越",
+    founders: [{name:"王审知",reign:"909-925",era:"开平"},{name:"王延翰",reign:"925-927",era:"永和"},{name:"王延钧",reign:"927-935",era:"龙启"},{name:"王昶",reign:"935-939",era:"通文"},{name:"王延曦",reign:"939-944",era:"永隆"},{name:"王延政",reign:"943-945",era:"天德"}]
+  },
+  nanChu: {
+    name: "楚", color: "#55efc4", start: 907, end: 951,
+    territory: "湖南", ethnic: "汉", collapsed: "南唐/南唐+宋",
+    founders: [{name:"马殷",reign:"907-930",era:"唐封楚王"},{name:"马希声",reign:"930-932",era:"长兴"},{name:"马希范",reign:"932-947",era:"乾祐"},{name:"马希广",reign:"947-950",era:"乾祐"},{name:"马希萼",reign:"950-951",era:"保宁"},{name:"马希崇",reign:"951",era:"广顺"}]
+  },
+  nanHan: {
+    name: "南汉", color: "#fd79a8", start: 917, end: 971,
+    territory: "广东/广西/海南", ethnic: "汉", collapsed: "宋(北宋)",
+    founders: [{name:"刘龑",reign:"917-942",era:"乾亨"},{name:"刘玢",reign:"942-943",era:"光天"},{name:"刘晟",reign:"943-958",era:"乾和"},{name:"刘鋹",reign:"958-971",era:"大宝"}]
+  },
+  beiHan: {
+    name: "北汉", color: "#636e72", start: 951, end: 979,
+    territory: "山西(太原一带)", ethnic: "沙陀", collapsed: "宋(北宋)",
+    founders: [{name:"刘崇",reign:"951-954",era:"乾祐"},{name:"刘承钧",reign:"954-970",era:"天会"},{name:"刘继恩",reign:"970",era:"天会"},{name:"刘继元",reign:"968-979",era:"天会"}]
+  },
+  nanPing: {
+    name: "南平(荆南)", color: "#b2bec3", start: 924, end: 963,
+    territory: "湖北(江陵)", ethnic: "汉", collapsed: "宋(北宋)",
+    founders: [{name:"高季兴",reign:"924-929",era:"唐封南平王"},{name:"高从诲",reign:"929-948",era:"乾祐"},{name:"高保融",reign:"948-960",era:"显德"},{name:"高保勖",reign:"960-962",era:"建隆"},{name:"高继冲",reign:"962-963",era:"乾德"}]
+  }
+};
+
+const EVENTS = [
+  { year: 907, text: "朱温建后梁，唐朝灭亡，五代十国开始" },
+  { year: 907, text: "钱镠建吴越、马殷建楚国、杨行密建南吴" },
+  { year: 909, text: "王审知建闽国" },
+  { year: 917, text: "刘龑建南汉" },
+  { year: 923, text: "李存勖灭后梁建后唐" },
+  { year: 924, text: "高季兴建南平" },
+  { year: 925, text: "后唐灭前蜀" },
+  { year: 934, text: "孟知祥建后蜀" },
+  { year: 936, text: "石敬瑭建后晋，燕云十六州归契丹" },
+  { year: 937, text: "李昪灭南吴建南唐" },
+  { year: 943, text: "南唐灭闽(殷国)" },
+  { year: 947, text: "契丹灭后晋，刘知远建后汉" },
+  { year: 951, text: "郭威建后周，北汉建" },
+  { year: 951, text: "南唐灭楚国" },
+  { year: 955, text: "后周世宗柴荣开始显德改革" },
+  { year: 959, text: "周世宗北伐契丹，收复三关" },
+  { year: 960, text: "陈桥兵变，赵匡胤建北宋" },
+  { year: 963, text: "宋灭南平" },
+  { year: 965, text: "宋灭后蜀" },
+  { year: 971, text: "宋灭南汉" },
+  { year: 975, text: "宋灭南唐" },
+  { year: 978, text: "吴越纳土归宋" },
+  { year: 979, text: "宋灭北汉，五代十国结束" },
+];
+
+// ============ MAP DATA ============
+// Approximate region polygons (simplified for visualization)
+const REGIONS = {
+  houLiang: { path: 'M280,180 L340,170 L370,200 L360,260 L300,270 L260,230 Z', label: '汴梁' },
+  houTang: { path: 'M260,150 L350,140 L400,180 L390,250 L320,270 L240,240 Z', label: '洛阳' },
+  houJin: { path: 'M240,130 L380,120 L420,170 L400,240 L280,260 L220,200 Z', label: '太原' },
+  houHan: { path: 'M250,140 L370,130 L400,180 L380,240 L270,255 L230,190 Z', label: '太原' },
+  houZhou: { path: 'M260,150 L380,140 L410,190 L390,260 L300,275 L240,210 Z', label: '汴梁' },
+  qianShu: { path: 'M160,280 L230,270 L260,320 L240,380 L170,390 L130,340 Z', label: '成都' },
+  houShu: { path: 'M150,290 L220,280 L255,330 L235,390 L160,395 L125,350 Z', label: '成都' },
+  nanWu: { path: 'M420,250 L500,230 L540,300 L520,370 L440,380 L400,320 Z', label: '扬州' },
+  nanTang: { path: 'M400,240 L490,220 L540,290 L525,360 L420,375 L380,310 Z', label: '金陵' },
+  yueYue: { path: 'M450,350 L520,330 L560,400 L530,450 L460,440 L430,390 Z', label: '杭州' },
+  minGuo: { path: 'M490,370 L560,350 L590,420 L560,470 L500,455 L470,410 Z', label: '福州' },
+  nanChu: { path: 'M340,330 L410,310 L450,370 L430,430 L360,440 L320,390 Z', label: '长沙' },
+  nanHan: { path: 'M480,470 L580,450 L650,520 L620,580 L510,570 L460,520 Z', label: '广州' },
+  beiHan: { path: 'M200,120 L280,110 L320,150 L300,200 L230,210 L190,160 Z', label: '太原' },
+  nanPing: { path: 'M380,290 L440,275 L470,320 L450,370 L400,375 L365,335 Z', label: '江陵' }
+};
+
+// ============ STATE ============
+let currentYear = 907;
+let isPlaying = false;
+let playInterval = null;
+let playSpeed = 1;
+let activeFilters = new Set(Object.keys(DYNASTIES));
+
+// ============ DOM ELEMENTS ============
+const svg = document.getElementById('map');
+const tooltip = document.getElementById('tooltip');
+const timelineInput = document.getElementById('timelineInput');
+const timelineProgress = document.getElementById('timelineProgress');
+const timelineThumb = document.getElementById('timelineThumb');
+const currentYearEl = document.getElementById('currentYear');
+const currentEraEl = document.getElementById('currentEra');
+const wuDaiRulersEl = document.getElementById('wuDaiRulers');
+const shiGuoRulersEl = document.getElementById('shiGuoRulers');
+const dynastyEventsEl = document.getElementById('dynastyEvents');
+const infoPanel = document.getElementById('infoPanel');
+const collapseBtn = document.getElementById('collapseBtn');
+const legend = document.getElementById('legend');
+
+// ============ RENDER FUNCTIONS ============
+function renderLegend() {
+  const order = ['houLiang','houTang','houJin','houHan','houZhou','qianShu','houShu','nanWu','nanTang','yueYue','minGuo','nanChu','nanHan','beiHan','nanPing'];
+  legend.innerHTML = order.map(id => {
+    const d = DYNASTIES[id];
+    const isActive = activeFilters.has(id);
+    return `<div class="legend-item ${isActive ? '' : 'inactive'}" data-id="${id}" onclick="toggleDynasty('${id}')">
+      <div class="legend-dot" style="background:${d.color}"></div>
+      <span>${d.name}</span>
+    </div>`;
+  }).join('');
+}
+
+function toggleDynasty(id) {
+  if (activeFilters.has(id)) {
+    activeFilters.delete(id);
+  } else {
+    activeFilters.add(id);
+  }
+  renderLegend();
+  renderMap();
+  updateRulers();
+  updateRegionOpacity();
+}
+
+function renderMap() {
+  // Clear existing
+  svg.innerHTML = '';
+  
+  // Background
+  const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  bg.setAttribute('width', '100%');
+  bg.setAttribute('height', '100%');
+  bg.setAttribute('fill', '#1a1f26');
+  svg.appendChild(bg);
+  
+  // Grid lines (subtle)
+  const grid = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  grid.setAttribute('stroke', '#252b33');
+  grid.setAttribute('stroke-width', '0.5');
+  for (let i = 0; i < 800; i += 40) {
+    const vLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    vLine.setAttribute('x1', i); vLine.setAttribute('y1', 0);
+    vLine.setAttribute('x2', i); vLine.setAttribute('y2', 600);
+    grid.appendChild(vLine);
+  }
+  for (let i = 0; i < 600; i += 40) {
+    const hLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    hLine.setAttribute('x1', 0); hLine.setAttribute('y1', i);
+    hLine.setAttribute('x2', 800); hLine.setAttribute('y2', i);
+    grid.appendChild(hLine);
+  }
+  svg.appendChild(grid);
+  
+  // Regions
+  const regionsGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  regionsGroup.setAttribute('id', 'regions');
+  
+  Object.entries(REGIONS).forEach(([id, data]) => {
+    const dynasty = DYNASTIES[id];
+    if (!dynasty) return;
+    
+    // Check if this dynasty exists in current year
+    const isActive = currentYear >= dynasty.start && currentYear <= dynasty.end;
+    const isFiltered = activeFilters.has(id);
+    
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', data.path);
+    path.setAttribute('fill', dynasty.color);
+    path.setAttribute('stroke', '#fff');
+    path.setAttribute('stroke-width', '1.5');
+    path.setAttribute('stroke-opacity', '0.3');
+    path.setAttribute('class', `region ${isActive && isFiltered ? '' : 'inactive'}`);
+    path.setAttribute('data-id', id);
+    path.style.opacity = isActive ? '0.75' : '0.1';
+    
+    // Animation
+    if (isActive) {
+      path.style.transition = 'opacity 0.5s, filter 0.3s';
+    }
+    
+    // Hover effects
+    path.addEventListener    
+    path.addEventListener('mouseenter', (e) => {
+      showTooltip(e, id);
+    });
+    path.addEventListener('mousemove', (e) => {
+      moveTooltip(e);
+    });
+    path.addEventListener('mouseleave', () => {
+      hideTooltip();
+    });
+    path.addEventListener('click', () => {
+      scrollToDynasty(id);
+    });
+    
+    regionsGroup.appendChild(path);
+    
+    // Label
+    if (isActive) {
+      const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      label.setAttribute('class', 'region-label');
+      label.setAttribute('x', getCentroid(data.path).x);
+      label.setAttribute('y', getCentroid(data.path).y);
+      label.textContent = dynasty.name;
+      label.style.opacity = '0';
+      label.style.transition = 'opacity 0.5s 0.3s';
+      regionsGroup.appendChild(label);
+      
+      // Fade in label after a delay
+      requestAnimationFrame(() => {
+        label.style.opacity = '1';
+      });
+    }
+  });
+  
+  svg.appendChild(regionsGroup);
+  
+  // Title
+  const title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  title.setAttribute('x', '20');
+  title.setAttribute('y', '35');
+  title.setAttribute('fill', '#8b949e');
+  title.setAttribute('font-size', '12');
+  title.setAttribute('font-family', 'var(--font)');
+  title.textContent = '五代十国时期疆域变迁示意';
+  svg.appendChild(title);
+}
+
+function getCentroid(pathD) {
+  // Simplified centroid calculation for path
+  const nums = pathD.match(/\d+/g).map(Number);
+  let sumX = 0, sumY = 0;
+  for (let i = 0; i < nums.length; i += 2) {
+    sumX += nums[i];
+    sumY += nums[i+1];
+  }
+  return { x: sumX / (nums.length/2), y: sumY / (nums.length/2) };
+}
+
+function showTooltip(e, id) {
+  const d = DYNASTIES[id];
+  if (!d) return;
+  
+  const isActive = currentYear >= d.start && currentYear <= d.end;
+  
+  let rulerHtml = '';
+  if (isActive) {
+    const ruler = getCurrentRuler(d, currentYear);
+    if (ruler) {
+      rulerHtml = `<div class="tooltip-row"><span>在位</span><span>${ruler.name} (${ruler.reign})</span></div>`;
+    }
+  }
+  
+  tooltip.innerHTML = `
+    <h3>
+      <span class="dynasty-name" style="background:${d.color}">${d.name}</span>
+    </h3>
+    ${isActive ? `
+      <div class="tooltip-row"><span>存续</span><span>${d.start}-${d.end}</span></div>
+      <div class="tooltip-row"><span>统治</span><span>${d.territory}</span></div>
+      <div class="tooltip-row"><span>民族</span><span>${d.ethnic}</span></div>
+      <div class="tooltip-row"><span>亡于</span><span>${d.collapsed}</span></div>
+      ${rulerHtml}
+    ` : `
+      <div class="tooltip-row"><span>状态</span><span>${currentYear < d.start ? '尚未建立' : '已经灭亡'}</span></div>
+    `}
+  `;
+  tooltip.classList.add('visible');
+  moveTooltip(e);
+}
+
+function moveTooltip(e) {
+  const x = e.clientX + 15;
+  const y = e.clientY + 15;
+  tooltip.style.left = x + 'px';
+  tooltip.style.top = y + 'px';
+}
+
+function hideTooltip() {
+  tooltip.classList.remove('visible');
+}
+
+function getCurrentRuler(dynasty, year) {
+  return dynasty.founders.find((r, i) => {
+    const reigns = r.reign.split('-');
+    const start = parseInt(reigns[0]);
+    const end = reigns[1] ? parseInt(reigns[1]) : year;
+    return year >= start && year <= end;
+  });
+}
+
+function scrollToDynasty(id) {
+  const d = DYNASTIES[id];
+  if (!d) return;
+  
+  // Check if dynasty exists in current year
+  if (currentYear < d.start || currentYear > d.end) {
+    // Jump to dynasty start year
+    setYear(d.start);
+    timelineInput.value = d.start;
+  }
+  
+  // Expand panel if collapsed
+  infoPanel.classList.remove('collapsed');
+  collapseBtn.textContent = '‹';
+  
+  // Scroll to relevant section
+  const isWuDai = ['houLiang','houTang','houJin','houHan','houZhou'].includes(id);
+  const target = isWuDai ? wuDaiRulersEl : shiGuoRulersEl;
+  if (target) {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  
+  // Highlight ruler
+  highlightRuler(id);
+}
+
+function highlightRuler(id) {
+  document.querySelectorAll('.ruler-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.id === id);
+  });
+}
+
+function updateRulers() {
+  // Five Dynasties
+  wuDaiRulersEl.innerHTML = ['houLiang','houTang','houJin','houHan','houZhou'].map(id => {
+    return renderRulerItem(id, DYNASTIES[id]);
+  }).join('');
+  
+  // Ten Kingdoms
+  shiGuoRulersEl.innerHTML = ['qianShu','houShu','nanWu','nanTang','yueYue','minGuo','nanChu','nanHan','beiHan','nanPing'].map(id => {
+    return renderRulerItem(id, DYNASTIES[id]);
+  }).join('');
+  
+  // Add click handlers
+  document.querySelectorAll('.ruler-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const id = el.dataset.id;
+      if (id) scrollToDynasty(id);
+    });
+  });
+}
+
+function renderRulerItem(id, dynasty) {
+  if (!dynasty) return '';
+  
+  const isActive = currentYear >= dynasty.start && currentYear <= dynasty.end;
+  const ruler = isActive ? getCurrentRuler(dynasty, currentYear) : null;
+  
+  return `
+    <div class="ruler-item ${isActive ? 'active' : ''}" data-id="${id}">
+      <div class="ruler-avatar" style="background:${dynasty.color}20; color:${dynasty.color}; border: 2px solid ${dynasty.color}">
+        ${ruler ? ruler.name[0] : (currentYear < dynasty.start ? '?' : '✕')}
+      </div>
+      <div class="ruler-info">
+        <div class="ruler-name" style="color: ${isActive ? dynasty.color : 'var(--text-dim)'}">
+          ${dynasty.name}
+          ${currentYear < dynasty.start ? `<span style="font-size:11px;color:var(--text-dim)">(${dynasty.start}年建)</span>` : ''}
+          ${currentYear > dynasty.end ? `<span style="font-size:11px;color:var(--text-dim)">(已亡)</span>` : ''}
+        </div>
+        <div class="ruler-reign">
+          ${ruler ? `${ruler.name} · ${ruler.reign}` : `${dynasty.start}-${dynasty.end}`}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function updateRegionOpacity() {
+  document.querySelectorAll('.region').forEach(path => {
+    const id = path.getAttribute('data-id');
+    const d = DYNASTIES[id];
+    if (!d) return;
+    
+    const isActive = currentYear >= d.start && currentYear <= d.end;
+    const isFiltered = activeFilters.has(id);
+    
+    path.classList.toggle('inactive', !isActive || !isFiltered);
+    path.style.opacity = isActive && isFiltered ? '0.75' : '0.1';
+  });
+}
+
+function updateEvents() {
+  const relevantEvents = EVENTS.filter(e => e.year === currentYear);
+  
+  if (relevantEvents.length > 0) {
+    dynastyEventsEl.innerHTML = relevantEvents.map(e => `
+      <div class="event-item">
+        <span class="event-year">${e.year}</span>
+        <span class="event-desc">${e.text}</span>
+      </div>
+    `).join('');
+  } else {
+    // Show upcoming events
+    const upcoming = EVENTS.filter(e => e.year > currentYear).slice(0, 3);
+    dynastyEventsEl.innerHTML = upcoming.map(e => `
+      <div class="event-item" style="opacity:0.5">
+        <span class="event-year">${e.year}</span>
+        <span class="event-desc">${e.text}</span>
+      </div>
+    `).join('');
+    if (upcoming.length === 0) {
+      dynastyEventsEl.innerHTML = '<div style="color:var(--text-dim);font-size:12px">五代入宋，天下渐归一统</div>';
+    }
+  }
+}
+
+function updateEraLabel() {
+  // Find what's happening at current year
+  const activeDynasties = Object.entries(DYNASTIES).filter(([id, d]) => 
+    currentYear >= d.start && currentYear <= d.end
+  );
+  
+  // Find events
+  const yearEvents = EVENTS.filter(e => e.year === currentYear);
+  
+  if (yearEvents.length > 0) {
+    currentEraEl.textContent = yearEvents[0].text.slice(0, 20);
+  } else if (activeDynasties.length > 0) {
+    const mainDynasty = activeDynasties.find(([id]) => 
+      ['houLiang','houTang','houJin','houHan','houZhou'].includes(id)
+    );
+    if (mainDynasty) {
+      const ruler = getCurrentRuler(mainDynasty[1], currentYear);
+      currentEraEl.textContent = ruler ? `${mainDynasty[1].name} · ${ruler.era}年` : mainDynasty[1].name;
+    } else {
+      currentEraEl.textContent = `${activeDynasties.length}个政权并存`;
+    }
+  }
+}
+
+function setYear(year) {
+  currentYear = parseInt(year);
+  currentYearEl.textContent = currentYear;
+  
+  // Update timeline
+  const progress = ((currentYear - 907) / (979 - 907)) * 100;
+  timelineProgress.style.width = progress + '%';
+  timelineThumb.style.left = progress + '%';
+  
+  updateEraLabel();
+  updateRulers();
+  updateRegionOpacity();
+  updateEvents();
+}
+
+// ============ PLAYBACK ============
+function play() {
+  if (isPlaying) {
+    pause();
+    return;
+  }
+  
+  isPlaying = true;
+  document.getElementById('playBtn').textContent = '⏸ 暂停';
+  document.body.classList.add('playing');
+  
+  const interval = 1000 / playSpeed;
+  
+  playInterval = setInterval(() => {
+    if (currentYear >= 979) {
+      pause();
+      setYear(907);
+      return;
+    }
+    setYear(currentYear + 1);
+    timelineInput.value = currentYear;
+  }, interval);
+}
+
+function pause() {
+  isPlaying = false;
+  document.getElementById('playBtn').textContent = '▶ 播放';
+  document.body.classList.remove('playing');
+  if (playInterval) {
+    clearInterval(playInterval);
+    playInterval = null;
+  }
+}
+
+function reset() {
+  pause();
+  setYear(907);
+  timelineInput.value = 907;
+}
+
+// ============ EVENT LISTENERS ============
+document.getElementById('playBtn').addEventListener('click', play);
+document.getElementById('prevBtn').addEventListener('click', () => {
+  if (currentYear > 907) setYear(currentYear - 1);
+  timelineInput.value = currentYear;
+});
+document.getElementById('nextBtn').addEventListener('click', () => {
+  if (currentYear < 979) setYear(currentYear + 1);
+  timelineInput.value = currentYear;
+});
+document.getElementById('resetBtn').addEventListener('click', reset);
+
+timelineInput.addEventListener('input', (e) => {
+  setYear(e.target.value);
+});
+
+document.querySelectorAll('.speed-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    playSpeed = parseFloat(btn.dataset.speed);
+    if (isPlaying) {
+      pause();
+      play();
+    }
+  });
+});
+
+collapseBtn.addEventListener('click', () => {
+  infoPanel.classList.toggle('collapsed');
+  collapseBtn.textContent = infoPanel.classList.contains('collapsed') ? '‹' : '›';
+});
+
+// Keyboard controls
+document.addEventListener('keydown', (e) => {
+  switch(e.key) {
+    case ' ':
+      e.preventDefault();
+      play();
+      break;
+    case 'ArrowLeft':
+      if (currentYear > 907) setYear(currentYear - 1);
+      timelineInput.value = currentYear;
+      break;
+    case 'ArrowRight':
+      if (currentYear < 979) setYear(currentYear + 1);
+      timelineInput.value = currentYear;
+      break;
+    case 'Home':
+      setYear(907);
+      timelineInput.value = 907;
+      break;
+    case 'End':
+      setYear(979);
+      timelineInput.value = 979;
+      break;
+  }
+});
+
+// ============ INIT ============
+renderLegend();
+renderMap();
+setYear(907);
+updateRulers();
+updateEvents();
+
+// Entrance animation
+document.querySelectorAll('.region').forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'scale(0.9)';
+  setTimeout(() => {
+    el.style.opacity = el.classList.contains('inactive') ? '0.1' : '0.75';
+    el.style.transform = 'scale(1)';
+  }, 100 + i * 30);
+});
+</script>
+</body>
+</html>
