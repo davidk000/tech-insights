@@ -2,216 +2,181 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>&#21313;&#20845;&#22283;&#x20116;&#x29105;|&#x4E92;&#x52D5;&#x5730;&#x5716;(304-439)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>十六国 · 五燕 | 互动历史地图 304-439</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:"Noto Serif CJK SC","Songti SC","SimSun",serif;background:#1c1610;color:#e8d5a8;height:100vh;display:flex;flex-direction:column;overflow:hidden}
-header{padding:10px 20px;border-bottom:1px solid #3a2e1e;display:flex;align-items:center;justify-content:space-between;background:#201a14;z-index:100;flex-shrink:0}
-h1{font-size:14px;font-weight:600;color:#c8a060;letter-spacing:2px}
-h1 span{font-size:10px;color:#8a7a58;font-weight:400;margin-left:8px}
-.lg{display:flex;gap:6px;flex-wrap:wrap;font-size:10px}
-.li{display:flex;align-items:center;gap:4px;cursor:pointer;padding:3px 6px;border-radius:3px;border:1px solid transparent;transition:background .2s}
-.li:hover{background:rgba(200,160,96,.1);border-color:#c8a060}
-.li.inactive{opacity:.2}
-.ld{width:9px;height:9px;border-radius:2px;flex-shrink:0}
-main{flex:1;display:flex;overflow:hidden}
-#mc{flex:1;position:relative;overflow:hidden}
-#map{width:100%;height:100%}
-.sr{cursor:pointer;transition:opacity .4s,filter .3s}
-.sr:hover{filter:brightness(1.3)}
-.sr.inactive{opacity:0!important;pointer-events:none}
-.tt{position:fixed;background:#201a14;border:1px solid #3a2e1e;border-radius:8px;padding:12px 16px;font-size:12px;max-width:320px;box-shadow:0 8px 32px rgba(0,0,0,.7);pointer-events:none;opacity:0;transition:opacity .15s;z-index:1000;line-height:1.7}
-.tt.v{opacity:1}
-.tt h3{font-size:13px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid #3a2e1e;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.dn{display:inline-block;padding:2px 7px;border-radius:3px;font-size:11px;color:#fff}
-.rw{display:flex;justify-content:space-between;margin:3px 0;font-size:11px;gap:8px}
-.rw span:first-child{color:#8a7a58}
-.rw span:last-child{color:#e8d5a8;text-align:right}
-.rh{margin-top:8px;padding-top:8px;border-top:1px solid #3a2e1e}
-.rr{display:flex;align-items:center;gap:7px;padding:2px 0;font-size:11px}
-.rs{width:10px;height:10px;border-radius:2px;flex-shrink:0}
-.rn{color:#e8d5a8;font-weight:600;margin-right:4px}
-.ry{color:#8a7a58}
-.tb{display:flex;border-bottom:1px solid #3a2e1e;background:#201a14}
-.tab{flex:1;padding:8px 0;text-align:center;font-size:11px;color:#8a7a58;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s}
-.tab.ac{color:#c8a060;border-bottom-color:#c8a060}
-.ip{width:340px;background:#201a14;border-left:1px solid #3a2e1e;overflow-y:auto;display:flex;flex-direction:column;transition:width .3s}
-.ip.cl{width:0;overflow:hidden}
-.ps{padding:12px 14px;border-bottom:1px solid #3a2e1e;flex-shrink:0}
-.ps h2{font-size:10px;color:#8a7a58;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
-.cy{font-size:32px;font-weight:700;color:#c8a060;line-height:1}
-.ce{font-size:11px;color:#8a7a58;margin-top:4px;margin-bottom:10px;min-height:18px}
-.rl{display:flex;flex-direction:column;gap:5px}
-.ri{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:5px;background:rgba(255,255,255,.02);cursor:pointer;border:1px solid transparent;transition:background .2s}
-.ri:hover{background:rgba(200,160,96,.08)}
-.ra{width:28px;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+:root{--bg:#1a1510;--panel:#1c1814;--border:#3a3028;--text:#e8d5b0;--text-dim:#8a7a60;--accent:#c8a96e}
+body{font-family:"PingFang SC","Microsoft YaHei",serif;background:var(--bg);color:var(--text);height:100vh;display:flex;flex-direction:column;overflow:hidden}
+header{padding:10px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--panel);z-index:100;flex-shrink:0}
+header h1{font-size:15px;font-weight:600;color:var(--accent);letter-spacing:2px}
+header h1 span{font-size:11px;color:var(--text-dim);font-weight:400;margin-left:10px;letter-spacing:0}
+.dynasty-legend{display:flex;gap:8px;flex-wrap:wrap;font-size:11px}
+.legend-item{display:flex;align-items:center;gap:4px;cursor:pointer;padding:3px 7px;border-radius:3px;transition:background .2s;border:1px solid transparent}
+.legend-item:hover{background:rgba(200,169,110,.1);border-color:var(--accent)}
+.legend-item_inactive,.legend-item.inactive{opacity:.25}
+.legend-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+main{flex:1;display:flex;position:relative;overflow:hidden}
+#map{flex:1;position:relative;overflow:hidden;background:#e8d5b0}
+#map svg{width:100%;height:100%;display:block}
+.tooltip{position:fixed;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-size:13px;max-width:320px;box-shadow:0 8px 32px rgba(0,0,0,.6);pointer-events:none;opacity:0;transition:opacity .15s;z-index:1000;line-height:1.7}
+.tooltip.visible{opacity:1}
+.tooltip h3{font-size:14px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.dn{display:inline-block;padding:2px 8px;border-radius:3px;font-size:12px;color:#fff}
+.rw{display:flex;justify-content:space-between;margin:3px 0;font-size:12px}
+.rw span:first-child{color:var(--text-dim)}
+.rh{margin-top:8px;border-top:1px solid var(--border);padding-top:8px}
+.rr{display:flex;align-items:center;gap:6px;padding:3px 0;font-size:11px}
+.rs{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.rn{font-weight:600;color:var(--text)}
+.ry{color:var(--text-dim);margin-left:auto}
+.tab-bar{display:flex;border-bottom:1px solid var(--border);background:var(--panel)}
+.tab{flex:1;padding:9px 0;text-align:center;font-size:12px;color:var(--text-dim);cursor:pointer;transition:all .2s;border-bottom:2px solid transparent}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.info-panel{width:330px;background:var(--panel);border-left:1px solid var(--border);overflow-y:auto;transition:width .3s;display:flex;flex-direction:column}
+.info-panel.collapsed{width:0;padding:0;overflow:hidden}
+.panel-section{padding:14px 16px;border-bottom:1px solid var(--border);flex-shrink:0}
+.panel-section h2{font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
+.current-year{font-size:38px;font-weight:700;line-height:1;color:var(--accent);margin-bottom:2px}
+.current-era{font-size:12px;color:var(--text-dim);margin-bottom:12px;min-height:18px;line-height:1.4}
+.ruler-list{display:flex;flex-direction:column;gap:6px}
+.ruler-item{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:5px;background:rgba(255,255,255,.02);transition:background .2s;cursor:pointer;border:1px solid transparent}
+.ruler-item:hover{background:rgba(200,169,110,.08);border-color:rgba(200,169,110,.2)}
+.ruler-item.active{background:rgba(200,169,110,.06)}
+.ra{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
 .rf{flex:1;min-width:0}
-.rn2{font-weight:600;font-size:12px}
-.rd{font-size:10px;color:#8a7a58;margin-top:1px}
-.ev{padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;display:flex;gap:7px}
-.ey{color:#8a7a58;width:32px;font-size:10px;flex-shrink:0}
-.ed{color:#e8d5a8;line-height:1.5}
-.yn{padding:10px 14px;font-size:11px;color:#8a7a58;border-bottom:1px solid #3a2e1e;line-height:1.7;flex-shrink:0}
-.yt{padding:10px 14px;font-size:11px;line-height:1.9;color:#8a7a58}
-#t5{display:none;overflow-y:auto;flex:1}
-#t5.v2{display:flex;flex-direction:column}
-#t16{overflow-y:auto;flex:1;display:flex;flex-direction:column}
-.tc{padding:10px 14px;border-top:1px solid #3a2e1e;background:#201a14;flex-shrink:0}
-.ym{display:flex;justify-content:space-between;font-size:10px;color:#8a7a58;margin-bottom:5px}
-.tt2{position:relative;height:36px;display:flex;align-items:center}
-.tb2{position:absolute;left:0;right:0;height:4px;background:#3a2e1e;border-radius:2px;overflow:hidden}
-.tp{height:100%;background:linear-gradient(90deg,#c8a060,#e8c880);border-radius:2px;transition:width .08s}
-.ti{position:absolute;left:0;right:0;width:100%;height:36px;opacity:0;cursor:pointer;-webkit-appearance:none}
-.th{position:absolute;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;background:#e8d5a8;border-radius:50%;box-shadow:0 1px 6px rgba(0,0,0,.5);pointer-events:none;transition:left .08s}
-.pc{display:flex;gap:5px;margin-top:8px;justify-content:center;flex-wrap:wrap}
-.btn{padding:5px 12px;border:1px solid #3a2e1e;background:transparent;color:#e8d5a8;border-radius:4px;cursor:pointer;font-size:12px;transition:all .2s}
-.btn:hover{background:rgba(200,160,96,.1)}
-.btn.pri{background:#6b4c10;border-color:#8b6c20;color:#e8d5a8}
-.sc{display:flex;align-items:center;gap:4px;margin-left:auto;font-size:11px;color:#8a7a58}
-.sb{padding:3px 8px;border:1px solid #3a2e1e;background:transparent;color:#8a7a58;border-radius:3px;cursor:pointer;font-size:10px;transition:all .2s}
-.sb.ac{background:rgba(200,160,96,.15);color:#c8a060}
-.cb{position:absolute;right:340px;top:50%;transform:translateY(-50%);width:22px;height:44px;background:#201a14;border:1px solid #3a2e1e;border-right:none;border-radius:6px 0 0 6px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#8a7a58;transition:all .3s;z-index:10;font-size:14px}
-.cb:hover{background:rgba(200,160,96,.1);color:#c8a060}
-.ip.cl+.cb{right:0}
+.rn2{font-weight:600;font-size:13px}
+.rd{font-size:11px;color:var(--text-dim);margin-top:1px}
+.timeline-controls{padding:12px 20px;border-top:1px solid var(--border);background:var(--panel);flex-shrink:0}
+.year-markers{display:flex;justify-content:space-between;font-size:10px;color:var(--text-dim);margin-bottom:6px;padding:0 2px}
+.timeline-track{position:relative;height:44px;display:flex;align-items:center}
+.timeline-bar{position:absolute;left:0;right:0;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.timeline-progress{height:100%;background:linear-gradient(90deg,#c8a96e,#9a8060);border-radius:3px;transition:width .1s}
+.timeline-input{position:absolute;left:0;right:0;width:100%;height:44px;opacity:0;cursor:pointer;-webkit-appearance:none}
+.timeline-thumb{position:absolute;top:50%;transform:translate(-50%,-50%);width:16px;height:16px;background:#c8a96e;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.5);pointer-events:none;transition:left .1s}
+.play-controls{display:flex;gap:6px;margin-top:10px;justify-content:center;flex-wrap:wrap}
+.btn{padding:7px 14px;border:1px solid var(--border);background:transparent;color:var(--text);border-radius:4px;cursor:pointer;font-size:12px;transition:all .2s;display:flex;align-items:center;gap:5px}
+.btn:hover{background:rgba(200,169,110,.1)}
+.btn.primary{background:rgba(200,169,110,.2);border-color:var(--accent);color:var(--accent)}
+.btn.primary:hover{background:rgba(200,169,110,.3)}
+.speed-control{display:flex;align-items:center;gap:5px;margin-left:auto;font-size:11px;color:var(--text-dim)}
+.speed-btn{padding:3px 8px;border:1px solid var(--border);background:transparent;color:var(--text-dim);border-radius:3px;cursor:pointer;font-size:10px;transition:all .2s}
+.speed-btn.active{background:rgba(200,169,110,.15);color:var(--accent)}
+.collapse-btn{position:absolute;right:330px;top:50%;transform:translateY(-50%);width:20px;height:44px;background:var(--panel);border:1px solid var(--border);border-right:none;border-radius:6px 0 0 6px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-dim);transition:all .3s;z-index:10;font-size:14px}
+.collapse-btn:hover{background:rgba(200,169,110,.1);color:var(--accent)}
+.info-panel.collapsed+.collapse-btn{right:0}
+.ev{padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:12px;display:flex;gap:8px}
+.ev-year{color:var(--text-dim);flex-shrink:0;width:34px}
+.ev-desc{color:var(--text);line-height:1.5}
+.yan-note{padding:10px 16px;font-size:11px;color:var(--text-dim);border-bottom:1px solid var(--border);line-height:1.6;flex-shrink:0}
+.yan-tree{padding:10px 16px;font-size:11px;line-height:1.9;color:var(--text-dim)}
+#tab5{display:none;overflow-y:auto;flex:1}
+#tab16{overflow-y:auto;flex:1}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+.playing .current-year{animation:pulse 1.5s ease-in-out infinite}
+.sr{transition:opacity .4s}
+.sr_inactive{opacity:0!important;pointer-events:none}
 </style>
 </head>
 <body>
 <header>
-  <h1>&#21313;&#20845;&#22283;&#x20116;&#x29105;<span>304-439 &#x4E92;&#x52D5;&#x5730;&#x5716;</span></h1>
-  <div class="lg" id="leg"></div>
+  <h1>十六国 · 五燕 <span>疆域变迁 (304-439)</span></h1>
+  <div class="dynasty-legend" id="leg"></div>
 </header>
 <main>
-  <div id="mc"><div id="map"></div></div>
-  <button class="cb" id="cbtn">&#8250;</button>
-  <div class="ip" id="ip">
-    <div class="tb">
-      <div class="tab ac" id="tb16">&#21313;&#20845;&#22283;</div>
-      <div class="tab" id="tb5">&#20116;&#29105;</div>
+  <div id="map"></div>
+  <button class="collapse-btn" id="cbtn">&laquo;</button>
+  <div class="info-panel" id="ip">
+    <div class="tab-bar">
+      <div class="tab active" id="tb16">十六国</div>
+      <div class="tab" id="tb5">五燕</div>
     </div>
     <div id="t16">
-      <div class="ps"><div class="cy" id="cy">304</div><div class="ce" id="ce"></div></div>
-      <div class="ps" style="flex:1;overflow-y:auto"><h2>&#20027;&#35201;&#25919;&#27169;</h2><div class="rl" id="mr"></div></div>
-      <div class="ps"><h2>&#37325;&#22823;&#20107;&#20214;</h2><div id="dev"></div></div>
+      <div class="panel-section">
+        <h2>当前年份</h2>
+        <div class="current-year" id="cy">304</div>
+        <div class="current-era" id="ce"></div>
+      </div>
+      <div class="panel-section" style="flex:1;overflow-y:auto;min-height:0">
+        <h2>主要政权</h2>
+        <div class="ruler-list" id="mr"></div>
+      </div>
+      <div class="panel-section">
+        <h2>重大事件</h2>
+        <div id="dev"></div>
+      </div>
     </div>
     <div id="t5">
-      <div class="yn">&#20116;&#29105;&#65306;&#x5E75;&#x7389;&#x9C9C;&#x5E06;&#x5EFA;&#x7ACB;&#x7684;&#x4E94;&#x500B;&#x71D5;&#x570D;&#x653F;&#x6743;&#xFF0C;&#x540C;&#x51FA;&#x4E00;&#x8109;</div>
-      <div class="ps"><h2>&#20116;&#29105;&#23384;&#32113;</h2><div class="rl" id="yr"></div></div>
-      <div class="ps"><h2>&#19990;&#31995;&#38364;&#20418;&#22294;</h2><div class="yt" id="yt"></div></div>
+      <div class="yan-note">五燕：慕容鲜卑建立的五个燕国政权，同出一脉</div>
+      <div class="panel-section">
+        <h2>五燕存续一览</h2>
+        <div class="ruler-list" id="yr"></div>
+      </div>
+      <div class="panel-section">
+        <h2>世系关系图</h2>
+        <div class="yan-tree" id="yt"></div>
+      </div>
     </div>
   </div>
 </main>
-<div class="tc">
-  <div class="ym"><span>304</span><span>340</span><span>380</span><span>410</span><span>439</span></div>
-  <div class="tt2">
-    <div class="tb2"><div class="tp" id="tp"></div></div>
-    <input type="range" class="ti" id="ti" min="304" max="439" value="304" step="1">
-    <div class="th" id="th"></div>
+<div class="timeline-controls">
+  <div class="year-markers"><span>304</span><span>340</span><span>380</span><span>410</span><span>439</span></div>
+  <div class="timeline-track">
+    <div class="timeline-bar"><div class="timeline-progress" id="tp"></div></div>
+    <input type="range" class="timeline-input" id="ti" min="304" max="439" value="304" step="1">
+    <div class="timeline-thumb" id="th"></div>
   </div>
-  <div class="pc">
-    <button class="btn" id="prv">&#8249;</button>
-    <button class="btn pri" id="ply">&#9654;</button>
-    <button class="btn" id="nxt">&#8250;</button>
-    <button class="btn" id="rst">&#37325;&#32622;</button>
-    <div class="sc"><span>&#36895;&#65306;</span>
-      <button class="sb" data-v="0.5">0.5x</button>
-      <button class="sb ac" data-v="1">1x</button>
-      <button class="sb" data-v="2">2x</button>
-      <button class="sb" data-v="4">4x</button>
+  <div class="play-controls">
+    <button class="btn" id="prv">&#9664; 上一年</button>
+    <button class="btn primary" id="ply">&#9654; 播放</button>
+    <button class="btn" id="nxt">下一年 &#9658;</button>
+    <button class="btn" id="rst">重置</button>
+    <div class="speed-control"><span>速度：</span>
+      <button class="speed-btn" data-v="0.5">0.5x</button>
+      <button class="speed-btn active" data-v="1">1x</button>
+      <button class="speed-btn" data-v="2">2x</button>
+      <button class="speed-btn" data-v="4">4x</button>
     </div>
   </div>
 </div>
-<div class="tt" id="tt"></div>
+<div class="tooltip" id="tt"></div>
 <script>
-var DY={
-  "qianZhao":{nm:"前赵",c:"#e74c3c",s:304,e:329,t:"并州/关中",et:"匈奴",co:"后赵",rs:[{n:"刘渊",r:"304-310",e:"永凤/河瑞"},{n:"刘和",r:"310",e:"永凤"},{n:"刘聪",r:"310-318",e:"光兴/嘉平/建元/麟嘉"},{n:"刘粲",r:"318",e:"汉昌"},{n:"刘曜",r:"318-329",e:"光初"},{n:"刘熙",r:"329",e:"光初"}],bx:100,by:145,bw:130,bh:90},
-  "houZhao":{nm:"后赵",c:"#9b59b6",s:319,e:351,t:"北方大部",et:"羯",co:"冉魏/前燕",rs:[{n:"石勒",r:"319-333",e:"太和/建平"},{n:"石弘",r:"333-334",e:"建平"},{n:"石虎",r:"334-349",e:"建武/太宁"},{n:"石世",r:"349",e:"太宁"},{n:"石遵",r:"349",e:"太宁"},{n:"石鉴",r:"349-350",e:"青龙"},{n:"石祗",r:"350-351",e:"永宁"}],bx:200,by:125,bw:160,bh:115},
-  "qianQin":{nm:"前秦",c:"#3498db",s:351,e:394,t:"北方/关中/西域",et:"氐",co:"西秦/后秦",rs:[{n:"苻健",r:"351-355",e:"皇始"},{n:"苻生",r:"355-357",e:"寿光"},{n:"苻坚",r:"357-385",e:"永兴/甘露/建元"},{n:"苻丕",r:"384-386",e:"太安/太元"},{n:"苻登",r:"386-394",e:"太初/更始"},{n:"苻崇",r:"394",e:"延初"}],bx:195,by:225,bw:135,bh:105},
-  "houQin":{nm:"后秦",c:"#e67e22",s:384,e:417,t:"关中/河南",et:"羌",co:"东晋/北魏",rs:[{n:"姚苌",r:"384-394",e:"白雀/建初"},{n:"姚兴",r:"394-416",e:"皇初/弘始"},{n:"姚泓",r:"416-417",e:"永和"}],bx:205,by:235,bw:125,bh:110},
-  "xiQin":{nm:"西秦",c:"#f39c12",s:385,e:431,t:"陇西/甘肃",et:"鲜卑",co:"夏/北魏",rs:[{n:"乞伏国仁",r:"385-388",e:"建义"},{n:"乞伏乾归",r:"388-412",e:"太初/更始"},{n:"乞伏炽磐",r:"412-428",e:"永康/建弘"},{n:"乞伏暮末",r:"428-431",e:"永弘"}],bx:185,by:315,bw:115,bh:105},
-  "qianLiang":{nm:"前凉",c:"#1abc9c",s:301,e:376,t:"河西走廊/甘肃",et:"汉",co:"前秦",rs:[{n:"张轨",r:"301-314",e:"建兴"},{n:"张寔",r:"314-320",e:"建兴"},{n:"张茂",r:"320-324",e:"建兴"},{n:"张骏",r:"324-346",e:"建兴/太元"},{n:"张重华",r:"346-353",e:"永乐"},{n:"张曜灵",r:"353",e:"和平"},{n:"张祚",r:"354-359",e:"太始"},{n:"张玄靓",r:"355-363",e:"太始/建兴"},{n:"张天锡",r:"363-376",e:"太清/永康"}],bx:65,by:315,bw:145,bh:135},
-  "houLiang":{nm:"后凉",c:"#27ae60",s:386,e:403,t:"河西走廊",et:"氐",co:"后秦/南凉/北凉",rs:[{n:"吕光",r:"386-399",e:"太安/麟嘉/龙飞"},{n:"吕绍",r:"399",e:"麟嘉"},{n:"吕纂",r:"399-401",e:"咸宁/天安"},{n:"吕隆",r:"401-403",e:"神鼎"}],bx:85,by:325,bw:135,bh:125},
-  "xiLiang":{nm:"西凉",c:"#e91e63",s:400,e:421,t:"敦煌/酒泉",et:"汉",co:"北凉/西凉",rs:[{n:"李暠",r:"400-417",e:"庚子/建初"},{n:"李歆",r:"417-420",e:"嘉兴/永建"},{n:"李恂",r:"420-421",e:"永建"}],bx:25,by:345,bw:95,bh:85},
-  "beiLiang":{nm:"北凉",c:"#8e44ad",s:397,e:439,t:"河西走廊/张掖",et:"卢水胡",co:"北魏",rs:[{n:"段业",r:"397-401",e:"神玺/天玺"},{n:"沮渠蒙逊",r:"401-433",e:"永安/玄始/承阳/义和/承和"},{n:"沮渠牧犍",r:"433-439",e:"承和/永和"}],bx:115,by:325,bw:125,bh:115},
-  "nanLiang":{nm:"南凉",c:"#d35400",s:397,e:414,t:"青海/甘肃东部",et:"鲜卑",co:"西秦/夏",rs:[{n:"秃发乌孤",r:"397-399",e:"太初"},{n:"秃发利鹿孤",r:"399-402",e:"建和"},{n:"禿发褥襌",r:"402-414",e:"嘉平"},{n:"禿发利鹿孤(复位)",r:"402-414",e:""},{n:"禿发褥襌",r:"414",e:""}],bx:205,by:355,bw:115,bh:100},
-  "xia":{nm:"夏",c:"#c0392b",s:407,e:431,t:"河套/关中",et:"匈奴(铁弗)",co:"北魏/吐谷浑",rs:[{n:"赫连勃勃",r:"407-425",e:"龙升/凤翔/昌武/真兴"},{n:"赫连昌",r:"425-428",e:"承光/太始"},{n:"赫连定",r:"428-431",e:"胜光"}],bx:295,by:165,bw:135,bh:115},
-  "chengHan":{nm:"成汉",c:"#16a085",s:304,e:347,t:"四川/贵州",et:"巴氐",co:"东晋",rs:[{n:"李雄",r:"304-334",e:"建元/晏平/玉衡"},{n:"李班",r:"334",e:"玉衡"},{n:"李期",r:"334-338",e:"玉恒"},{n:"李寿",r:"338-343",e:"汉德/嘉宁"},{n:"李势",r:"343-347",e:"太和/嘉宁"}],bx:275,by:415,bw:115,bh:115},
-  "qianYan":{nm:"前燕",c:"#2ecc71",s:337,e:370,t:"辽宁/河北/河南",et:"鲜卑",co:"前秦",rs:[{n:"慕容皝",r:"337-348",e:"元玺/光寿"},{n:"慕容儁",r:"348-360",e:"元玺/永寿/建熙"},{n:"慕容暐",r:"360-370",e:"建熙"}],bx:435,by:145,bw:155,bh:115},
-  "houYan":{nm:"后燕",c:"#27ae60",s:384,e:407,t:"河北/山西/辽宁",et:"鲜卑",co:"北燕/高句丽",rs:[{n:"慕容垂",r:"384-396",e:"燕元/建兴"},{n:"慕容宝",r:"396-398",e:"永康/建初"},{n:"慕容盛",r:"398-401",e:"建平/长乐/中兴"},{n:"慕容熙",r:"401-407",e:"光始/建始"}],bx:375,by:155,bw:145,bh:115},
-  "nanYan":{nm:"南燕",c:"#006400",s:398,e:410,t:"山东/河南",et:"鲜卑",co:"东晋",rs:[{n:"慕容德",r:"398-405",e:"燕元/建平"},{n:"慕容超",r:"405-410",e:"太上"}],bx:335,by:255,bw:105,bh:95},
-  "beiYan":{nm:"北燕",c:"#1a5e20",s:407,e:436,t:"辽宁/河北",et:"鲜卑(高氏)/汉(冯氏)",co:"北魏",rs:[{n:"高云",r:"407-409",e:"正始"},{n:"冯跋",r:"409-430",e:"太平"},{n:"冯弘",r:"430-436",e:"太兴"}],bx:495,by:125,bw:135,bh:115},
-};
-var EV=[
-  {y:291,t:"八王之乱起，西晋内战"},
-  {y:304,t:"刘渊建前赵(汉)，成汉李雄称帝"},
-  {y:310,t:"刘聪灭西晋"},
-  {y:311,t:"永嘉之乱，晋怀帝被俘"},
-  {y:316,t:"刘曜灭西晋"},
-  {y:319,t:"石勒建后赵"},
-  {y:329,t:"后赵灭前赵"},
-  {y:337,t:"慕容皝建前燕"},
-  {y:347,t:"东晋恒温灭成汉"},
-  {y:350,t:"石虎死后后赵内乱"},
-  {y:351,t:"苻健建前秦"},
-  {y:370,t:"前秦灭前燕"},
-  {y:376,t:"前秦灭前凉/代"},
-  {y:383,t:"淝水之战，前秦大败"},
-  {y:384,t:"慕容垂建后燕，慕容泓建西燕，姚苌建后秦"},
-  {y:385,t:"乞伏国仁建西秦"},
-  {y:386,t:"吕光建后凉"},
-  {y:394,t:"后燕灭西燕"},
-  {y:397,t:"秃发乌孤建南凉，段业建北凉"},
-  {y:400,t:"李暠建西凉"},
-  {y:401,t:"北凉沮渠蒙逊杀段业自立"},
-  {y:407,t:"赫连勃勃建夏，冯跋建北燕，后燕亡"},
-  {y:410,t:"东晋刘裕灭南燕"},
-  {y:414,t:"西秦灭南凉"},
-  {y:417,t:"东晋刘裕灭后秦"},
-  {y:420,t:"东晋灭西凉，刘裕建宋"},
-  {y:421,t:"北凉灭西凉"},
-  {y:431,t:"夏灭西秦，五燕仅存北燕"},
-  {y:436,t:"北魏灭北燕"},
-  {y:439,t:"北魏灭北凉，十六国时期结束"},
-];
-var YN={
-  "qianYan_y":{nm:"前燕",s:337,e:370,et:"鲜卑",nt:"337年慕容皝自立，342年迁都龙城，350年慕容儁迁都邺城，370年灭于前秦",c:"#888"},
-  "houYan_y":{nm:"后燕",s:384,e:407,et:"鲜卑",nt:"384年慕容垂叛前秦建立，396年慕容垂死后后燕分裂，北魏占河北，后燕退守龙城",c:"#888"},
-  "nanYan_y":{nm:"南燕",s:398,e:410,et:"鲜卑",nt:"398年慕容德南迁滑台称燕王，后迁广固，410年刘裕灭之",c:"#888"},
-  "xiYan":{nm:"西燕",s:384,e:394,et:"鲜卑",nt:"384年慕容泓建立，后其弟慕容冲转战关中，慕容永最后定居长子。394年后燕慕容垂灭西燕",c:"#228b22"},
-  "beiYan_y":{nm:"北燕",s:407,e:436,et:"鲜卑/汉",nt:"407年高云杀慕容熙建立，409年冯跋即位。436年北魏攻占龙城，冯弘奔高句丽，北燕亡",c:"#888"},
-};
-var RG={
-  "qianZhao":{x:100,y:145,w:130,h:90},
-  "houZhao":{x:200,y:125,w:160,h:115},
-  "qianQin":{x:195,y:225,w:135,h:105},
-  "houQin":{x:205,y:235,w:125,h:110},
-  "xiQin":{x:185,y:315,w:115,h:105},
-  "qianLiang":{x:65,y:315,w:145,h:135},
-  "houLiang":{x:85,y:325,w:135,h:125},
-  "xiLiang":{x:25,y:345,w:95,h:85},
-  "beiLiang":{x:115,y:325,w:125,h:115},
-  "nanLiang":{x:205,y:355,w:115,h:100},
-  "xia":{x:295,y:165,w:135,h:115},
-  "chengHan":{x:275,y:415,w:115,h:115},
-  "qianYan":{x:435,y:145,w:155,h:115},
-  "houYan":{x:375,y:155,w:145,h:115},
-  "nanYan":{x:335,y:255,w:105,h:95},
-  "beiYan":{x:495,y:125,w:135,h:115},
-};var ANCIENT=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700"><defs><pattern id="pg" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0L0 0 0 40" fill="none" stroke="#c8a870" stroke-width="0.3" opacity="0.4"/></pattern><linearGradient id="pgr" x1="0" y1="0" x2="100" y2="100"><stop offset="0%" stop-color="#f5e6c8"/><stop offset="100%" stop-color="#e8d090"/></linearGradient></defs><rect width="900" height="700" fill="url(#pgr)"/><rect width="900" height="700" fill="url(#pg)" opacity="0.3"/><path d="M50,100 L120,80 L200,60 L300,50 L400,55 L500,60 L600,80 L700,100 L780,150 L820,220 L850,320 L860,420 L840,520 L800,580 L720,620 L620,640 L520,650 L420,655 L320,650 L220,640 L140,610 L80,560 L40,480 L20,380 L15,280 L20,180 Z" fill="#e8d8a0" stroke="#8b6914" stroke-width="1.5" opacity="0.5"/><path d="M120,90 C180,120 250,110 300,150 C340,180 360,220 340,280 C320,340 280,360 260,400 C240,440 260,480 300,510 C340,540 400,560 460,580" fill="none" stroke="#5a9ebe" stroke-width="3" stroke-linecap="round" opacity="0.8"/><text x="190" y="200" font-size="10" fill="#4a7a8a" font-family="serif" opacity="0.9">&#40644;&#27827;</text><path d="M520,60 C540,120 560,200 540,280 C520,360 500,400 520,480 C540,560 600,600 680,620 C720,630 780,640 820,660" fill="none" stroke="#5a9ebe" stroke-width="3" stroke-linecap="round" opacity="0.8"/><text x="580" y="300" font-size="10" fill="#4a7a8a" font-family="serif" opacity="0.9">&#38262;&#27743;</text><path d="M420,300 C460,330 520,340 580,350 C640,360 700,355 760,370" fill="none" stroke="#5a9ebe" stroke-width="2" stroke-linecap="round" opacity="0.7"/><text x="560" y="330" font-size="9" fill="#4a7a8a" font-family="serif" opacity="0.8">&#28193;&#27827;</text><polygon points="240,188 250,218 260,188" fill="none" stroke="#8b6914" stroke-width="0.8" opacity="0.6"/><polygon points="260,188 270,218 280,188" fill="none" stroke="#8b6914" stroke-width="0.8" opacity="0.6"/><polygon points="280,188 290,218 300,188" fill="none" stroke="#8b6914" stroke-width="0.8" opacity="0.6"/><text x="255" y="183" font-size="8" fill="#6b5010" font-family="serif" opacity="0.7">&#22826;&#34892;&#23665;</text><polygon points="215,268 227,298 239,268" fill="none" stroke="#8b6914" stroke-width="0.8" opacity="0.6"/><polygon points="235,268 247,298 259,268" fill="none" stroke="#8b6914" stroke-width="0.8" opacity="0.6"/><polygon points="255,268 267,298 279,268" fill="none" stroke="#8b6914" stroke-width="0.8" opacity="0.6"/><text x="235" y="263" font-size="8" fill="#6b5010" font-family="serif" opacity="0.7">&#31206;&#23798;</text><circle cx="160" cy="158" r="2" fill="#8b6914" opacity="0.7"/><text x="165" y="162" font-size="9" fill="#5a4010" font-family="serif" opacity="0.85">&#24179;&#38555;</text><circle cx="300" cy="248" r="2" fill="#8b6914" opacity="0.7"/><text x="305" y="252" font-size="9" fill="#5a4010" font-family="serif" opacity="0.85">&#38262;&#23433;</text><circle cx="340" cy="295" r="2" fill="#8b6914" opacity="0.7"/><text x="345" y="299" font-size="9" fill="#5a4010" font-family="serif" opacity="0.85">&#27993;&#38451;</text><circle cx="500" cy="218" r="2" fill="#8b6914" opacity="0.7"/><text x="505" y="222" font-size="9" fill="#5a4010" font-family="serif" opacity="0.85">&#37101;&#22478;</text><circle cx="270" cy="395" r="2" fill="#8b6914" opacity="0.7"/><text x="275" y="399" font-size="9" fill="#5a4010" font-family="serif" opacity="0.85">&#22992;&#33145;</text><circle cx="340" cy="478" r="2" fill="#8b6914" opacity="0.7"/><text x="345" y="482" font-size="9" fill="#5a4010" font-family="serif" opacity="0.85">&#25104;&#37117;</text><circle cx="530" cy="278" r="2" fill="#8b6914" opacity="0.7"/><text x="535" y="282" font-size="9" fill="#5a4010" font-family="serif" opacity="0.85">&#26187;&#38555;</text><circle cx="420" cy="298" r="2" fill="#8b6914" opacity="0.7"/><text x="425" y="302" font-size="9" fill="#5a4010" font-family="serif" opacity="0.85">&#24225;&#22266;</text><circle cx="600" cy="198" r="2" fill="#8b6914" opacity="0.7"/><text x="605" y="202" font-size="9" fill="#5a4010" font-family="serif" opacity="0.85">&#40644;&#22478;</text><circle cx="820" cy="620" r="25" fill="none" stroke="#8b6914" stroke-width="0.8" opacity="0.5"/><text x="815" y="590" font-size="10" fill="#8b6914" font-family="serif">&#21271;</text><text x="828" y="624" font-size="10" fill="#8b6914" font-family="serif">&#21335;</text><text x="792" y="624" font-size="10" fill="#8b6914" font-family="serif">&#35199;</text><text x="818" y="644" font-size="10" fill="#8b6914" font-family="serif">&#26032;</text><rect x="50" y="620" width="180" height="40" rx="3" fill="none" stroke="#8b6914" stroke-width="1" opacity="0.5"/><text x="60" y="638" font-size="11" fill="#5a4010" font-family="serif" letter-spacing="3">&#20116;&#32982;&#20081;&#33719;</text><text x="60" y="654" font-size="9" fill="#8b6914" font-family="serif">&#21313;&#20845;&#22283;&#39636;&#26178; 304-439</text></svg>`;var curY=304,isPl=false,plI=null,spd=1,curT='16';
+var DY={qianZhao:{nm:"前赵",c:"#c0392b",s:304,e:329,t:"匈奴",et:"匈奴",co:"后赵",rs:[{n:"刘渊",r:"304-310"},{n:"刘和",r:"310"},{n:"刘聪",r:"310-318"},{n:"刘粲",r:"318"},{n:"刘曜",r:"318-329"},{n:"刘熙",r:"329"}]},houZhao:{nm:"后赵",c:"#8e44ad",s:319,e:351,t:"羯",et:"羯",co:"冉魏/前燕",rs:[{n:"石勒",r:"319-333"},{n:"石弘",r:"333-334"},{n:"石虎",r:"334-349"},{n:"石世",r:"349"},{n:"石遵",r:"349"},{n:"石鉴",r:"349-350"},{n:"石祗",r:"350-351"}]},qianQin:{nm:"前秦",c:"#2980b9",s:351,e:394,t:"氐",et:"氐",co:"西秦/后秦",rs:[{n:"苻健",r:"351-355"},{n:"苻生",r:"355-357"},{n:"苻坚",r:"357-385"},{n:"苻丕",r:"384-386"},{n:"苻登",r:"386-394"},{n:"苻崇",r:"394"}]},houQin:{nm:"后秦",c:"#d35400",s:384,e:417,t:"羌",et:"羌",co:"东晋/北魏",rs:[{n:"姚苌",r:"384-394"},{n:"姚兴",r:"394-416"},{n:"姚泓",r:"416-417"}]},xiQin:{nm:"西秦",c:"#f39c12",s:385,e:431,t:"鲜卑",et:"鲜卑",co:"夏/北魏",rs:[{n:"乞伏国仁",r:"385-388"},{n:"乞伏乾归",r:"388-412"},{n:"乞伏炽磐",r:"412-428"},{n:"乞伏暮末",r:"428-431"}]},qianLiang:{nm:"前凉",c:"#16a085",s:301,e:376,t:"汉",et:"汉",co:"前秦",rs:[{n:"张轨",r:"301-314"},{n:"张寔",r:"314-320"},{n:"张茂",r:"320-324"},{n:"张骏",r:"324-346"},{n:"张重华",r:"346-353"},{n:"张曜灵",r:"353"},{n:"张祚",r:"354-359"},{n:"张玄靓",r:"355-363"},{n:"张天锡",r:"363-376"}]},houLiang:{nm:"后凉",c:"#27ae60",s:386,e:403,t:"氐",et:"氐",co:"后秦/南凉/北凉",rs:[{n:"吕光",r:"386-399"},{n:"吕绍",r:"399"},{n:"吕纂",r:"399-401"},{n:"吕隆",r:"401-403"}]},xiLiang:{nm:"西凉",c:"#a02020",s:400,e:421,t:"汉",et:"汉",co:"北凉",rs:[{n:"李暠",r:"400-417"},{n:"李歆",r:"417-420"},{n:"李恂",r:"420-421"}]},beiLiang:{nm:"北凉",c:"#7d3c98",s:397,e:439,t:"卢水胡",et:"卢水胡",co:"北魏",rs:[{n:"段业",r:"397-401"},{n:"沮渠蒙逊",r:"401-433"},{n:"沮渠牧犍",r:"433-439"}]},nanLiang:{nm:"南凉",c:"#b7550a",s:397,e:414,t:"鲜卑",et:"鲜卑",co:"西秦/夏",rs:[{n:"秃发乌孤",r:"397-399"},{n:"秃发利鹿孤",r:"399-402"},{n:"秃发褥禪",r:"402-414"}]},xia:{nm:"夏",c:"#a93226",s:407,e:431,t:"匈奴",et:"匈奴(铁弗)",co:"北魏/吐谷浑",rs:[{n:"赫连勃勃",r:"407-425"},{n:"赫连昌",r:"425-428"},{n:"赫连定",r:"428-431"}]},chengHan:{nm:"成汉",c:"#138d75",s:304,e:347,t:"巴氐",et:"巴氐",co:"东晋",rs:[{n:"李雄",r:"304-334"},{n:"李班",r:"334"},{n:"李期",r:"334-338"},{n:"李寿",r:"338-343"},{n:"李势",r:"343-347"}]},qianYan:{nm:"前燕",c:"#1e8449",s:337,e:370,t:"鲜卑",et:"鲜卑",co:"前秦",rs:[{n:"慕容皝",r:"337-348"},{n:"慕容儁",r:"348-360"},{n:"慕容暐",r:"360-370"}]},houYan:{nm:"后燕",c:"#1a7a4a",s:384,e:407,t:"鲜卑",et:"鲜卑",co:"北燕/高句丽",rs:[{n:"慕容垂",r:"384-396"},{n:"慕容宝",r:"396-398"},{n:"慕容盛",r:"398-401"},{n:"慕容熙",r:"401-407"}]},nanYan:{nm:"南燕",c:"#1d5c1d",s:398,e:410,t:"鲜卑",et:"鲜卑",co:"东晋",rs:[{n:"慕容德",r:"398-405"},{n:"慕容超",r:"405-410"}]},beiYan:{nm:"北燕",c:"#145a1a",s:407,e:436,t:"汉/鲜卑",et:"鲜卑/汉",co:"北魏",rs:[{n:"高云",r:"407-409"},{n:"冯跋",r:"409-430"},{n:"冯弘",r:"430-436"}]}};
+
+var EV=[{y:291,t:"八王之乱起，西晋内战"},{y:304,t:"刘渊建前赵(汉)，成汉李雄称帝"},{y:310,t:"刘聪灭西晋"},{y:311,t:"永嘉之乱，晋怀帝被俘"},{y:316,t:"刘曜灭西晋"},{y:319,t:"石勒建后赵"},{y:329,t:"后赵灭前赵"},{y:337,t:"慕容皝建前燕"},{y:347,t:"东晋恒温灭成汉"},{y:350,t:"石虎死后后赵内乱"},{y:351,t:"苻健建前秦"},{y:370,t:"前秦灭前燕"},{y:376,t:"前秦灭前凉/代"},{y:383,t:"淝水之战，前秦大败"},{y:384,t:"慕容垂建后燕，慕容泓建西燕，姚苌建后秦"},{y:385,t:"乞伏国仁建西秦"},{y:386,t:"吕光建后凉"},{y:394,t:"后燕灭西燕"},{y:397,t:"秃发乌孤建南凉，段业建北凉"},{y:400,t:"李暠建西凉"},{y:401,t:"北凉沮渠蒙逊杀段业自立"},{y:407,t:"赫连勃勃建夏，冯跋建北燕，后燕亡"},{y:410,t:"东晋刘裕灭南燕"},{y:414,t:"西秦灭南凉"},{y:417,t:"东晋刘裕灭后秦"},{y:420,t:"东晋灭西凉，刘裕建宋"},{y:421,t:"北凉灭西凉"},{y:431,t:"夏灭西秦，五燕仅存北燕"},{y:436,t:"北魏灭北燕"},{y:439,t:"北魏灭北凉，十六国时期结束"}];
+
+var YN={qianYan:{nm:"前燕",s:337,e:370,c:"#1e8449",nt:"337年慕容皝自立，342年迁都龙城，350年慕容儁迁都邺城，370年灭于前秦"},houYan:{nm:"后燕",s:384,e:407,c:"#1a7a4a",nt:"384年慕容垂叛前秦建立，396年后燕分裂，北魏占河北，后燕退守龙城"},nanYan:{nm:"南燕",s:398,e:410,c:"#1d5c1d",nt:"398年慕容德南迁滑台称燕王，后迁广固，410年刘裕灭之"},xiYan:{nm:"西燕",s:384,e:394,c:"#228b22",nt:"384年慕容泓建立，后慕容冲转战关中，慕容永定居长子。394年后燕慕容垂灭西燕"},beiYan:{nm:"北燕",s:407,e:436,c:"#145a1a",nt:"407年高云杀慕容熙建立，409年冯跋即位。436年北魏攻占龙城，冯弘奔高句丽，北燕亡"}};
+
+var RG={qianZhao:{x:110,y:135,w:140,h:115},houZhao:{x:175,y:105,w:210,h:170},qianQin:{x:195,y:195,w:170,h:160},houQin:{x:215,y:205,w:155,h:150},xiQin:{x:175,y:285,w:165,h:150},qianLiang:{x:50,y:265,w:180,h:195},houLiang:{x:80,y:275,w:170,h:185},xiLiang:{x:15,y:305,w:125,h:140},beiLiang:{x:100,y:275,w:175,h:195},nanLiang:{x:185,y:315,w:175,h:175},xia:{x:265,y:145,w:190,h:170},chengHan:{x:245,y:395,w:170,h:165},qianYan:{x:415,y:115,w:235,h:205},houYan:{x:355,y:145,w:215,h:195},nanYan:{x:325,y:245,w:170,h:155},beiYan:{x:495,y:105,w:210,h:195}};
+var ANCIENT='<rect width="900" height="700" fill="#f5e6c8"/><defs><radialGradient id="paperGrad" cx="50%" cy="50%" r="70%"><stop offset="0%" stop-color="#f8edd5"/><stop offset="45%" stop-color="#e8d5b0"/><stop offset="75%" stop-color="#d4c090"/><stop offset="100%" stop-color="#c0a070"/></radialGradient><linearGradient id="waterGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#2d5a6a"/><stop offset="50%" stop-color="#5090a5"/><stop offset="100%" stop-color="#2d5a6a"/></linearGradient><linearGradient id="waterGradV" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#2d5a6a"/><stop offset="50%" stop-color="#5090a5"/><stop offset="100%" stop-color="#2d5a6a"/></linearGradient></defs><rect width="900" height="700" fill="url(#paperGrad)"/><ellipse cx="150" cy="100" rx="90" ry="63" fill="#7a5830" opacity="0.07"/><ellipse cx="420" cy="220" rx="110" ry="77" fill="#7a5830" opacity="0.07"/><ellipse cx="720" cy="300" rx="130" ry="91" fill="#7a5830" opacity="0.07"/><ellipse cx="200" cy="480" rx="85" ry="60" fill="#7a5830" opacity="0.07"/><ellipse cx="600" cy="580" rx="100" ry="70" fill="#7a5830" opacity="0.07"/><ellipse cx="870" cy="160" rx="80" ry="56" fill="#7a5830" opacity="0.07"/><ellipse cx="80" cy="620" rx="75" ry="52" fill="#7a5830" opacity="0.07"/><g stroke="#8a7060" stroke-width="0.4" stroke-opacity="0.2" fill="none"><line x1="0" y1="175" x2="900" y2="175"/><line x1="0" y1="300" x2="900" y2="300"/><line x1="0" y1="425" x2="900" y2="425"/><line x1="0" y1="550" x2="900" y2="550"/><line x1="0" y1="650" x2="900" y2="650"/><line x1="200" y1="0" x2="200" y2="700"/><line x1="350" y1="0" x2="350" y2="700"/><line x1="500" y1="0" x2="500" y2="700"/><line x1="650" y1="0" x2="650" y2="700"/><line x1="800" y1="0" x2="800" y2="700"/></g><path d="M40,135 Q80,122 110,145 Q145,172 123,212 Q100,252 133,287 Q160,327 135,377 Q115,417 145,452 Q175,482 150,517 Q130,547 155,577 Q180,607 150,637" stroke="url(#waterGrad)" stroke-width="2.5" fill="none" stroke-opacity="0.65"/><path d="M680,30 Q695,80 670,130 Q645,180 665,230 Q685,280 660,330 Q635,380 655,430 Q675,480 650,530 Q625,580 645,630 Q665,665 640,700" stroke="url(#waterGradV)" stroke-width="2" fill="none" stroke-opacity="0.55"/><path d="M480,310 Q510,330 500,360 Q490,390 520,420 Q545,445 525,475" stroke="url(#waterGrad)" stroke-width="1.8" fill="none" stroke-opacity="0.5"/><path d="M230,240 Q260,260 250,285 Q240,310 270,330" stroke="url(#waterGrad)" stroke-width="1.5" fill="none" stroke-opacity="0.5"/><text x="148" y="125" font-size="8" fill="#2d5a6a" opacity="0.7" font-family="serif">黄河</text><text x="680" y="25" font-size="8" fill="#2d5a6a" opacity="0.7" font-family="serif">长江</text><text x="535" y="308" font-size="7" fill="#2d5a6a" opacity="0.7" font-family="serif">淮水</text><g fill="#8a7060" opacity="0.45"><polygon points="155,165 168,195 142,195"/><polygon points="175,158 190,192 160,192"/><polygon points="200,162 215,196 185,196"/><polygon points="225,157 240,191 210,191"/></g><text x="185" y="155" font-size="8" fill="#6a5040" opacity="0.6" font-family="serif">太行</text><g fill="#8a7060" opacity="0.4"><polygon points="270,270 283,298 257,298"/><polygon points="295,265 310,295 280,295"/><polygon points="320,268 335,298 305,298"/><polygon points="345,262 360,292 330,292"/></g><text x="300" y="262" font-size="8" fill="#6a5040" opacity="0.6" font-family="serif">秦岭</text><g fill="#8a7060" opacity="0.4"><polygon points="100,340 113,368 87,368"/><polygon points="125,335 140,365 110,365"/><polygon points="150,338 165,368 135,368"/></g><text x="118" y="332" font-size="8" fill="#6a5040" opacity="0.6" font-family="serif">祁连山</text><g fill="#8a7060" opacity="0.4"><polygon points="580,55 595,88 565,88"/><polygon points="610,50 627,85 593,85"/><polygon points="642,53 659,88 625,88"/></g><text x="605" y="48" font-size="8" fill="#6a5040" opacity="0.6" font-family="serif">大兴安岭</text><g fill="#8a7060" opacity="0.38"><polygon points="355,115 368,143 342,143"/><polygon points="378,110 393,140 363,140"/><polygon points="403,113 418,143 388,143"/></g><text x="378" y="108" font-size="8" fill="#6a5040" opacity="0.6" font-family="serif">阴山</text><g fill="#8a7060" opacity="0.38"><polygon points="230,310 242,336 218,336"/><polygon points="252,306 266,334 238,334"/></g><text x="244" y="303" font-size="8" fill="#6a5040" opacity="0.6" font-family="serif">贺兰山</text><g font-family="serif" fill="#3a2810" opacity="0.85"><text x="270" y="265" font-size="12" font-weight="bold">长安</text><text x="300" y="192" font-size="11">洛阳</text><text x="355" y="148" font-size="10">邺城</text><text x="185" y="165" font-size="10">晋阳</text><text x="105" y="350" font-size="10">姑臧</text><text x="335" y="460" font-size="10">成都</text><text x="500" y="180" font-size="10">蓟城</text><text x="435" y="155" font-size="9">龙城</text><text x="390" y="300" font-size="9">广固</text><text x="470" y="240" font-size="9">滑台</text><text x="565" y="140" font-size="9">平州</text><text x="75" y="410" font-size="9">敦煌</text><text x="150" y="445" font-size="9">张掖</text><text x="195" y="500" font-size="9">酒泉</text><text x="305" y="200" font-size="9">平阳</text><text x="175" y="90" font-size="9">大同</text></g><g font-family="serif" font-size="9" fill="#5a4a30" opacity="0.55"><text x="450" y="50">北方</text><text x="750" y="380">江南</text><text x="450" y="670">岭南</text><text x="50" y="200">塞北</text></g><text x="760" y="688" font-size="7" fill="#8a7060" opacity="0.5" font-family="serif">十六国疆域图 (304-439)</text>';
+var curY=304,isPl=false,plI=null,spd=1,curT='16';
 var aF=new Set();
 var NS='http://www.w3.org/2000/svg';
 var mEl,svgEl,ttEl,cyEl,ceEl,mrEl,devEl,yrEl,ytEl,ipEl,cbtnEl,legEl,tiEl,tpEl,thEl;
 function init(){
   aF=new Set(Object.keys(DY));
-  mEl=document.getElementById('mc');ttEl=document.getElementById('tt');cyEl=document.getElementById('cy');ceEl=document.getElementById('ce');
-  mrEl=document.getElementById('mr');devEl=document.getElementById('dev');yrEl=document.getElementById('yr');ytEl=document.getElementById('yt');
-  ipEl=document.getElementById('ip');cbtnEl=document.getElementById('cbtn');legEl=document.getElementById('leg');
-  tiEl=document.getElementById('ti');tpEl=document.getElementById('tp');thEl=document.getElementById('th');
+  mEl=document.getElementById('map');
+  ttEl=document.getElementById('tt');
+  cyEl=document.getElementById('cy');
+  ceEl=document.getElementById('ce');
+  mrEl=document.getElementById('mr');
+  devEl=document.getElementById('dev');
+  yrEl=document.getElementById('yr');
+  ytEl=document.getElementById('yt');
+  ipEl=document.getElementById('ip');
+  cbtnEl=document.getElementById('cbtn');
+  legEl=document.getElementById('leg');
+  tiEl=document.getElementById('ti');
+  tpEl=document.getElementById('tp');
+  thEl=document.getElementById('th');
   svgEl=document.createElementNS(NS,'svg');
   svgEl.setAttribute('viewBox','0 0 900 700');
-  svgEl.setAttribute('width','100%');svgEl.setAttribute('height','100%');
+  svgEl.setAttribute('width','100%');
+  svgEl.setAttribute('height','100%');
   mEl.appendChild(svgEl);
-  renderMap();renderLeg();updateAll();
+  renderMap();
+  renderLeg();
+  updateAll();
 }
 function mkEl(tag,attrs,parent){
   var e=document.createElementNS(NS,tag);
@@ -221,7 +186,9 @@ function mkEl(tag,attrs,parent){
 }
 function yx(yr,start,end,w){return Math.round((yr-start)/(end-start)*w);}
 function renderMap(){
-  var g=mkEl('g',{id:'bg'},svgEl);g.innerHTML=ANCIENT;renderRgns();
+  var g=mkEl('g',{id:'bg'},svgEl);
+  g.innerHTML=ANCIENT;
+  renderRgns();
 }
 function renderRgns(){
   var g=mkEl('g',{id:'rgns'},svgEl);
@@ -230,9 +197,8 @@ function renderRgns(){
     if(!r)return;
     var act=curY>=d.s&&curY<=d.e;
     var inactive=aF.has(id)?'':'_inactive';
-    var op=act&&aF.has(id)?0.4:0;
-    var p=mkEl('path',{
-      d:'M'+r.x+','+r.y+' L'+(r.x+r.w)+','+r.y+' L'+(r.x+r.w)+','+(r.y+r.h)+' L'+r.x+','+(r.y+r.h)+' Z',
+    var p=mkEl('rect',{
+      x:r.x,y:r.y,w:r.w,h:r.h,
       fill:d.c,stroke:'#fff','stroke-width':1.5,'stroke-opacity':0.2,
       class:'sr'+inactive,
       opacity:act?0.4:0,'data-id':id
@@ -259,8 +225,12 @@ function renderBars(){
     var by=r.y+r.h-18,bh=14;
     mkEl('rect',{x:r.x,y:by,w:r.w,h:bh,rx:2,fill:'rgba(0,0,0,0.3)',stroke:'rgba(255,255,255,0.1)'},bG);
     d.rs.forEach(function(r2){
-      var ps=r2.r.split('-');var s2=parseInt(ps[0]);var e2=ps[1]?parseInt(ps[1]):d.e;
-      var x1=yx(s2,d.s,d.e,r.w);var x2=yx(Math.min(e2,d.e),d.s,d.e,r.w);var rw=Math.max(1,x2-x1);
+      var ps=r2.r.split('-');
+      var s2=parseInt(ps[0]);
+      var e2=ps[1]?parseInt(ps[1]):d.e;
+      var x1=yx(s2,d.s,d.e,r.w);
+      var x2=yx(Math.min(e2,d.e),d.s,d.e,r.w);
+      var rw=Math.max(1,x2-x1);
       mkEl('rect',{x:r.x+x1,y:by,w:rw,h:bh,rx:1,fill:d.c,opacity:0.85},bG);
     });
     var cx2=yx(Math.min(curY,d.e),d.s,d.e,r.w);
@@ -280,38 +250,36 @@ function renderRgnOp(){
 }
 function getCur(d,year){
   return d.rs.find(function(r){
-    var ps=r.r.split('-');var s=parseInt(ps[0]);var e2=ps[1]?parseInt(ps[1]):year;
+    var ps=r.r.split('-');
+    var s=parseInt(ps[0]);
+    var e2=ps[1]?parseInt(ps[1]):year;
     return year>=s&&year<=e2;
   });
 }
+function yrRow(r,d){
+  var ps=r.r.split('-');
+  var dur=ps[1]?(parseInt(ps[1])-parseInt(ps[0]))+'年':'';
+  return '<div class=rr><div class=rs style="background:'+d.c+'"></div><span class=rn>'+r.n+'</span><span class=ry>'+r.r+(dur?' ('+dur+')':'')+'</span></div>';
+}
 function showTT(e,id){
-  var d=DY[id];if(!d)return;
+  var d=DY[id];
+  if(!d)return;
   var act=curY>=d.s&&curY<=d.e;
-  var r2=act?getCur(d,curY):null;
-  // Build ruler rows
-  var rHtml=d.rs.map(function(r){
-    var ps=r.r.split('-');var dur=ps[1]?(parseInt(ps[1])-parseInt(ps[0]))+'年':'';
-    var row=document.createElement('div');row.className='rr';
-    row.innerHTML='<div class=rs style="background:'+d.c+'"></div><span class=rn>'+r.n+'</span><span class=ry>'+r.r+(dur?' ('+dur+')':'')+'</span>';
-    return row;
-  });
-  var infoEl=document.createElement('div');
-  if(act){
-    infoEl.innerHTML='<div class=rw><span>存續</span><span>'+d.s+'-'+d.e+'</span></div><div class=rw><span>統治</span><span>'+d.t+'</span></div><div class=rw><span>民族</span><span>'+d.et+'</span></div><div class=rw><span>亡於</span><span>'+d.co+'</span></div>';
-  } else {
-    infoEl.innerHTML='<div class=rw><span>狀態</span><span>'+(curY<d.s?'尚未建立':'已滅亡')+'</span></div>';
-  }
-  ttEl.innerHTML='<h3><span class=dn style="background:'+d.c+'">'+d.nm+'</span></h3>';
-  ttEl.appendChild(infoEl);
+  var rHtml=d.rs.map(function(r){return yrRow(r,d);}).join('');
+  var info=act
+    ?'<div class=rw><span>存續</span><span>'+d.s+'-'+d.e+'</span></div><div class=rw><span>統治</span><span>'+d.t+'</span></div><div class=rw><span>民族</span><span>'+d.et+'</span></div><div class=rw><span>亡於</span><span>'+d.co+'</span></div><div class=rh>'+rHtml+'</div>'
+    :'<div class=rw><span>狀態</span><span>'+(curY<d.s?'尚未建立':'已滅亡')+'</span></div>';
+  ttEl.innerHTML='<h3><span class=dn style="background:'+d.c+'">'+d.nm+'</span></h3>'+info;
   ttEl.classList.add('v');
   ttEl.style.left=(e.clientX+12)+'px';
   ttEl.style.top=(e.clientY+12)+'px';
 }
 function jumpTo(id){
-  var d=DY[id];if(!d)return;
+  var d=DY[id];
+  if(!d)return;
   if(curY<d.s||curY>d.e){setY(d.s);tiEl.value=d.s;}
   if(curT!=='16')swT('16');
-  if(ipEl.classList.contains('cl')){ipEl.classList.remove('cl');cbtnEl.textContent='<';}
+  if(ipEl.classList.contains('collapsed')){ipEl.classList.remove('collapsed');cbtnEl.textContent='<';}
   mrEl.scrollIntoView({behavior:'smooth',block:'start'});
 }
 function updateRulers(){
@@ -321,9 +289,8 @@ function updateRulers(){
     var id=e[0],d=e[1];
     var r2=getCur(d,curY);
     var div=document.createElement('div');
-    div.className='ri';
-    div.dataset.id=id;
-    div.innerHTML='<div class=ra style="background:'+d.c+'22;color:'+d.c+'">'+d.nm[0]+'</div><div class=rf><div class=rn2 style=color:'+d.c+'>'+d.nm+'</div><div class=rd>'+(r2?r2.n+'·'+r2.r:d.s+'-'+d.e)+'</div></div>';
+    div.className='ruler-item';
+    div.innerHTML='<div class="ra" style="background:'+d.c+'22;color:'+d.c+'">'+d.nm[0]+'</div><div class=rf><div class=rn2 style="color:'+d.c+'">'+d.nm+'</div><div class=rd>'+(r2?r2.n+'·'+r2.r:d.s+'-'+d.e)+'</div></div>';
     div.addEventListener('click',function(){jumpTo(id);});
     mrEl.appendChild(div);
   });
@@ -334,14 +301,17 @@ function updateEvents(){
   devEl.innerHTML='';
   if(ye.length>0){
     ye.forEach(function(e){
-      var div=document.createElement('div');div.className='ev';
-      div.innerHTML='<span class=ey>'+e.y+'</span><span class=ed>'+e.t+'</span>';
+      var div=document.createElement('div');
+      div.className='ev';
+      div.innerHTML='<span class=ev-year>'+e.y+'</span><span class=ev-desc>'+e.t+'</span>';
       devEl.appendChild(div);
     });
-  } else {
+  }else{
     upcoming.forEach(function(e){
-      var div=document.createElement('div');div.className='ev';div.style.opacity='0.45';
-      div.innerHTML='<span class=ey>'+e.y+'</span><span class=ed>'+e.t+'</span>';
+      var div=document.createElement('div');
+      div.className='ev';
+      div.style.opacity='0.45';
+      div.innerHTML='<span class=ev-year>'+e.y+'</span><span class=ev-desc>'+e.t+'</span>';
       devEl.appendChild(div);
     });
   }
@@ -349,15 +319,15 @@ function updateEvents(){
 function updateEraLabel(){
   var ye=EV.filter(function(e){return e.y===curY;});
   var count=Object.keys(DY).filter(function(id){var d=DY[id];return curY>=d.s&&curY<=d.e;}).length;
-  cyEl.textContent=ye.length?ye[0].t.slice(0,16):(count>0?count+'個政權並存':'');
+  ceEl.textContent=ye.length?ye[0].t.slice(0,16):(count>0?count+'個政權並存':'');
 }
 function updateLeg(){
   legEl.innerHTML='';
   Object.keys(DY).forEach(function(id){
     var d=DY[id];
     var div=document.createElement('div');
-    div.className='li'+(aF.has(id)?'':'_inactive');
-    div.innerHTML='<div class=ld style=background:'+d.c+'></div><span>'+d.nm+'</span>';
+    div.className='legend-item'+(aF.has(id)?'':'_inactive');
+    div.innerHTML='<div class=legend-dot style="background:'+d.c+'"></div><span>'+d.nm+'</span>';
     div.addEventListener('click',function(){togDyn(id);});
     legEl.appendChild(div);
   });
@@ -365,8 +335,8 @@ function updateLeg(){
 function togDyn(id){if(aF.has(id))aF.delete(id);else aF.add(id);updateLeg();renderRgnOp();renderBars();}
 function swT(tab){
   curT=tab;
-  document.getElementById('tb16').classList.toggle('ac',tab==='16');
-  document.getElementById('tb5').classList.toggle('ac',tab==='5');
+  document.getElementById('tb16').classList.toggle('active',tab==='16');
+  document.getElementById('tb5').classList.toggle('active',tab==='5');
   var t16=document.getElementById('t16');
   var t5=document.getElementById('t5');
   t16.style.display=tab==='16'?'':'none';
@@ -378,14 +348,16 @@ function renderYan(){
   Object.entries(YN).forEach(function(e){
     var id=e[0],d=e[1];
     var act=curY>=d.s&&curY<=d.e;
-    var div=document.createElement('div');div.className='ri'+(act?' ac':'');
-    div.innerHTML='<div class=ra style=background:'+d.c+'22;color:'+d.c+'>燕</div><div class=rf><div class=rn2 style=color:'+d.c+'>'+d.nm+'<span style=font-size:10px;color:#8a7a58> ('+d.s+'-'+d.e+')</span></div><div class=rd style=color:'+(act?'#e8d5a8':'#8a7a58')+'>'+d.nt.split('。')[0]+'</div></div>';
+    var div=document.createElement('div');
+    div.className='ruler-item'+(act?' active':'');
+    div.innerHTML='<div class="ra" style="background:'+d.c+'22;color:'+d.c+'">燕</div><div class=rf><div class=rn2 style="color:'+d.c+'">'+d.nm+'<span style="font-size:10px;color:#8a7a58"> ('+d.s+'-'+d.e+')</span></div><div class=rd style="color:'+(act?'#e8d5a8':'#8a7a58')+'">'+d.nt.split('。')[0]+'</div></div>';
     yrEl.appendChild(div);
   });
-  ytEl.innerHTML='<div style=color:#2ecc71>前燕 (337-370)</div><div style=padding-left:14px;color:#228b22>├ 西燕 (384-394) 慕容泓，394年滅於後燕</div><div style=padding-left:14px;color:#27ae60>├ 後燕 (384-407) 慕容垂</div><div style=padding-left:28px;color:#1a5e20>  └ 北燕 (407-436) 馮跋(漢) 409年篡權</div><div style=padding-left:28px;color:#006400>  └ 南燕 (398-410) 慕容德南遷</div><div style="margin-top:10px;font-size:10px;color:#8a7a58;padding:8px;background:rgba(255,255,255,.02);border-radius:6px>注：西燕部分史家不列入十六國正統</div>';
+  ytEl.innerHTML='<div style="color:#2ecc71">前燕 (337-370)</div><div style="padding-left:14px;color:#228b22">├ 西燕 (384-394) 慕容泓，394年滅於後燕</div><div style="padding-left:14px;color:#27ae60">├ 後燕 (384-407) 慕容垂</div><div style="padding-left:28px;color:#1a5e20">│ └ 北燕 (407-436) 馮跋(漢) 409年篡權</div><div style="padding-left:28px;color:#006400">│ └ 南燕 (398-410) 慕容德南遷</div><div style="margin-top:10px;font-size:10px;color:#8a7a58;padding:8px;background:rgba(255,255,255,.02);border-radius:6px">注：西燕部分史家不列入十六國正統</div>';
 }
 function setY(yr){
-  curY=parseInt(yr);cyEl.textContent=curY;
+  curY=parseInt(yr);
+  cyEl.textContent=curY;
   var pct=((curY-304)/135*100);
   tpEl.style.width=pct+'%';
   thEl.style.left='calc('+pct+'% - 7px)';
@@ -410,10 +382,10 @@ document.getElementById('rst').addEventListener('click',function(){if(isPl)play(
 document.getElementById('ti').addEventListener('input',function(e){setY(e.target.value);});
 document.getElementById('tb16').addEventListener('click',function(){swT('16');});
 document.getElementById('tb5').addEventListener('click',function(){swT('5');});
-cbtnEl.addEventListener('click',function(){ipEl.classList.toggle('cl');cbtnEl.textContent=ipEl.classList.contains('cl')?'‹':'›';});
-document.querySelectorAll('.sb').forEach(function(b){b.addEventListener('click',function(){
-  document.querySelectorAll('.sb').forEach(function(x){x.classList.remove('ac');});
-  b.classList.add('ac');
+cbtnEl.addEventListener('click',function(){ipEl.classList.toggle('collapsed');cbtnEl.textContent=ipEl.classList.contains('collapsed')?'»':'«';});
+document.querySelectorAll('.speed-btn').forEach(function(b){b.addEventListener('click',function(){
+  document.querySelectorAll('.speed-btn').forEach(function(x){x.classList.remove('active');});
+  b.classList.add('active');
   spd=parseFloat(b.dataset.v);
   if(isPl){clearInterval(plI);plI=setInterval(function(){if(curY>=439){play();setY(304);tiEl.value=304;return;}setY(curY+1);tiEl.value=curY;},1000/spd);}
 });});
@@ -421,11 +393,9 @@ document.addEventListener('keydown',function(e){
   if(e.key===' ')e.preventDefault(),play();
   else if(e.key==='ArrowLeft'&&curY>304)setY(curY-1),tiEl.value=curY;
   else if(e.key==='ArrowRight'&&curY<439)setY(curY+1),tiEl.value=curY;
-  else if(e.key==='Home')setY(304),tiEl.value=304;
-  else if(e.key==='End')setY(439),tiEl.value=439;
+  else if(e.key==='Home')setY(304),tiEl.value=curY;
+  else if(e.key==='End')setY(439),tiEl.value=curY;
 });
 function updateAll(){updateLeg();updateRulers();updateEvents();updateEraLabel();renderBars();}
 window.addEventListener('load',init);
 </script>
-</body>
-</html>
