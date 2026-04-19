@@ -1,0 +1,349 @@
+#!/usr/bin/env python3
+html = """<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>AI知识图谱</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#ddd;font-family:'PingFang SC','Microsoft YaHei',sans-serif}
+.page{width:1080px;margin:28px auto;background:#fffdf7;padding:42px 52px 52px;box-shadow:0 8px 40px rgba(0,0,0,.12)}
+.inner{columns:2 465px;column-gap:36px;column-rule:1px dashed #ddd}
+.inner section{break-inside:avoid;margin-bottom:26px;padding:0 5px}
+.mt{text-align:center;font-size:50px;font-weight:900;color:#1a1a2e;letter-spacing:2px}
+.ms{text-align:center;color:#aaa;font-size:16px;margin:6px 0 0}
+.tl{width:250px;height:4px;background:linear-gradient(90deg,transparent,#e05c2a 20%,#e05c2a 80%,transparent);margin:12px auto 34px;border-radius:2px}
+.ch{font-size:27px;font-weight:900;color:#e05c2a;margin:22px 0 10px;padding-left:12px;border-left:5px solid #e05c2a}
+.sc{font-size:19px;font-weight:700;color:#2a3a6e;margin:12px 0 7px}
+.para{font-size:17px;color:#333;line-height:1.9;margin:5px 0}
+.kw{color:#e05c2a;font-weight:700}
+.tag{display:inline-block;padding:2px 11px;border-radius:16px;font-size:14px;font-weight:600}
+.to{background:#fff0e8;color:#b03010;border:1.5px solid #e8a080}
+.tb{background:#eef4ff;color:#1a4a9a;border:1.5px solid #8ab0e0}
+.tg{background:#eef8f0;color:#1a7a3a;border:1.5px solid #70c090}
+.tp{background:#f5eef8;color:#6a2090;border:1.5px solid #b080d0}
+.tr{background:#fff0f0;color:#b01030;border:1.5px solid #e08090}
+.fl{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin:7px 0}
+.fs{padding:5px 11px;background:#eef4ff;border:1.5px solid #8ab0e0;border-radius:9px;font-size:15px;color:#1a3a8a;font-weight:600;text-align:center}
+.fa{font-size:17px;color:#8ab0e0;font-weight:bold;flex-shrink:0}
+.bx{background:#f8f6ff;border:2px solid #9070d0;border-radius:11px;padding:11px 14px;margin:9px 0}
+.ar{display:flex;gap:6px;flex-wrap:wrap;margin:5px 0}
+.ai{flex:1;min-width:105px;padding:7px 8px;background:#fff;border:1.5px solid #c0a0f0;border-radius:9px;text-align:center;font-size:14px;color:#4a20a0}
+.ai strong{display:block;font-size:16px;color:#2a1080;margin-bottom:2px}
+.ad{font-size:12px;color:#666}
+.tbl{width:100%;border-collapse:collapse;margin:9px 0;font-size:16px}
+.tbl th{background:#3a5aaa;color:#fff;padding:8px 11px;text-align:left;font-weight:700;border-radius:6px 6px 0 0}
+.tbl td{padding:7px 11px;border-bottom:1px solid #e8e8e8;vertical-align:top}
+.tbl tr:nth-child(even) td{background:#f8f9ff}
+.n{font-weight:800;font-size:17px}
+.qt{background:#fff8f0;border-left:5px solid #e8a040;padding:9px 14px;margin:9px 0;border-radius:0 9px 9px 0;font-size:15px;color:#5a3a00;line-height:1.8}
+.no{font-size:13px;color:#888;margin:4px 0 9px;font-style:italic}
+.tr3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin:9px 0}
+.tc{padding:10px;border-radius:11px;text-align:center}
+.tc-o{background:#fff0e8;border:2.5px solid #e8a080}
+.tc-b{background:#eef4ff;border:2.5px solid #8ab0e0}
+.tc-g{background:#eef8f0;border:2.5px solid #70c090}
+.tl2{font-size:18px;font-weight:900;margin-bottom:4px}
+.tl2-o{color:#b03010}.tl2-b{color:#1a4a9a}.tl2-g{color:#1a7a3a}
+.ts2{font-size:13px;color:#555}
+.fsub{margin:5px 0 5px 20px;display:flex;flex-direction:column;gap:5px}
+.fst{font-size:15px;font-weight:700;margin-bottom:1px}
+.fst-b{color:#3a5aaa}.fst-g{color:#1a7a3a}.fst-p{color:#7a2090}
+.trn{background:#f0f8ff;border:2px solid #4080c0;border-radius:11px;padding:10px;margin:9px 0}
+.tb2{flex:1;padding:8px 5px;background:#fff;border-radius:8px;border:1.5px solid #80b0e0;text-align:center;min-width:65px}
+.tbn2{font-size:14px;font-weight:800;color:#1a3a9a;margin-bottom:2px}
+.tbd2{font-size:12px;color:#555}
+.vl{background:#f8fff0;border:2px solid #50a050;border-radius:11px;padding:10px;margin:9px 0}
+.df{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin:7px 0}
+.ds{padding:7px 12px;border-radius:11px;font-size:15px;font-weight:700;text-align:center;min-width:85px}
+.ds-f{background:#fff0e8;border:2px solid #e8a060;color:#a04010}
+.ds-r{background:#eef4ff;border:2px solid #6090e0;color:#1040a0}
+.ft{text-align:center;color:#ccc;font-size:14px;margin-top:34px;padding-top:16px;border-top:1px solid #eee}
+.fn{font-size:18px;font-weight:700;color:#ccc;margin-right:8px}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="mt">人工智能基础</div>
+<div class="ms">AI Fundamentals &#8212; 从概念到落地</div>
+<div class="tl"></div>
+<div class="inner">
+
+<section>
+<div class="ch">一 AI基础概念</div>
+<div class="sc">定义</div>
+<div class="para">模拟、延伸、拓展人类智能的<span class="kw">交叉学科</span>，涵盖计算机科学、认知科学、数学、神经科学等多领域。</div>
+<div class="sc">流派分类</div>
+<table class="tbl"><tr><th style="width:26%">流派</th><th style="width:32%">核心思想</th><th>代表</th></tr>
+<tr><td><span class="n" style="color:#b03010">符号主义</span><br><span class="tag to" style="font-size:12px">Symbolicism</span></td><td>智能=逻辑推理<br>知识表示+规则引擎</td><td>专家系统ES<br>知识图谱KN</td></tr>
+<tr><td><span class="n" style="color:#1a4a9a">连接主义</span><br><span class="tag tb" style="font-size:12px">Connectionism</span></td><td>智能=神经网络<br>从数据自动学习表示</td><td>神经网络NN<br>深度学习DL</td></tr>
+<tr><td><span class="n" style="color:#1a7a3a">行为主义</span><br><span class="tag tg" style="font-size:12px">Actionism</span></td><td>智能=环境交互<br>感知-动作映射</td><td>强化学习RL<br>机器人控制</td></tr>
+</table>
+<div class="sc">发展历史</div>
+<div class="qt"><strong>1956年达特茅斯会议</strong>：麦卡锡、明斯基等首次提出AI概念，AI正式诞生。<br><br>历经<span class="kw">三起两落</span>：
+<div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:5px;align-items:center">
+<span class="tag to">起#1</span><span style="font-size:13px;color:#555">1956-1974 逻辑推理与专家系统</span>
+<span class="tag tb">落#1</span><span style="font-size:13px;color:#555">1974-1980 计算能力瓶颈</span>
+<span class="tag to">起#2</span><span style="font-size:13px;color:#555">1980-1987 专家系统商业化</span>
+<span class="tag tb">落#2</span><span style="font-size:13px;color:#555">1987-1993 专家系统衰退</span>
+<span class="tag tg">起#3</span><span style="font-size:13px;color:#555">1993至今 深度学习+大模型</span>
+</div></div>
+</section>
+
+<section>
+<div class="ch">二 三大核心要素</div>
+<div class="tr3">
+<div class="tc tc-o"><div class="tl2 tl2-o">&#9889; 算力</div><div class="ts2">NPU/GPU/TPU<br>决定运行速度</div></div>
+<div class="tc tc-b"><div class="tl2 tl2-b">&#128202; 数据</div><div class="ts2">质量+数量<br>决定效果上限</div></div>
+<div class="tc tc-g"><div class="tl2 tl2-g">&#129513; 算法</div><div class="ts2">ML/DL/RNN/CNN<br>/Transformer</div></div>
+</div>
+<div class="no">"算力是引擎，数据是燃料，算法是方向盘" &#8212; 三者缺一不可</div>
+</section>
+
+<section>
+<div class="ch">三 机器学习核心</div>
+<div class="sc">定义</div>
+<div class="para">从数据中<span class="kw">自动提取规律</span>，无需显式编程，由数据驱动实现模式识别与预测。</div>
+<div class="sc">学习分类</div>
+<div class="bx">
+<div class="ar">
+<div class="ai" style="background:#fff0e8;border-color:#e8a080"><strong style="color:#b03010">有监督学习</strong><div class="ad">人工标签数据<br>分类/回归</div></div>
+<div class="ai" style="background:#eef4ff;border-color:#8ab0e0"><strong style="color:#1a4a9a">无监督学习</strong><div class="ad">无标签自动<br>聚类/降维</div></div>
+<div class="ai" style="background:#eef8f0;border-color:#70c090"><strong style="color:#1a7a3a">强化学习</strong><div class="ad">环境交互<br>策略优化</div></div>
+</div>
+<div style="text-align:center;font-size:12px;color:#888;margin:5px 0">&#9660; 应用场景 &#9660;</div>
+<div class="ar">
+<div class="ai" style="background:#fff0e8;border-color:#e8a080"><strong style="color:#b03010">邮件识别</strong><div class="ad">金融风控</div></div>
+<div class="ai" style="background:#eef4ff;border-color:#8ab0e0"><strong style="color:#1a4a9a">客户分群</strong><div class="ad">异常检测</div></div>
+<div class="ai" style="background:#eef8f0;border-color:#70c090"><strong style="color:#1a7a3a">自动驾驶</strong><div class="ad">游戏AI</div></div>
+</div>
+</div>
+<div class="sc">两大环节</div>
+<div class="fl" style="justify-content:center">
+<div class="fs" style="background:#fff3e0;border-color:#e8a060;color:#a04010;font-size:16px;padding:7px 14px"><strong>训练</strong><br><span style="font-size:12px">挖掘规律&#183;拟合模型&#183;调参优化</span></div>
+<span class="fa">&#rarr;</span>
+<div class="fs" style="background:#eef4ff;border-color:#6090e0;color:#1040a0;font-size:16px;padding:7px 14px"><strong>推理</strong><br><span style="font-size:12px">用训练好模型执行预测</span></div>
+</div>
+<div class="sc">泛化性</div>
+<div style="margin-left:15px">
+<div style="margin:4px 0"><span class="tag tg">&#10003; 拟合</span> <span style="font-size:15px;color:#555">训练集表现良好</span></div>
+<div style="margin:4px 0"><span class="tag tb">&#10007; 欠拟合</span> <span style="font-size:15px;color:#555">训练不足，模型太简单</span></div>
+<div style="margin:4px 0"><span class="tag tr">&#10007; 过拟合</span> <span style="font-size:15px;color:#555">过度记忆噪声 &#8594; 正则化/Dropout/早停</span></div>
+</div>
+<div class="sc">完整落地流程</div>
+<div class="fsub">
+<div class="fst fst-b">&#9312; 数据准备</div>
+<div class="fl" style="margin-left:0">
+<div class="fs" style="font-size:13px;padding:4px 9px">问题定义</div><span class="fa">&#rarr;</span>
+<div class="fs" style="font-size:13px;padding:4px 9px">数据工程</div><span class="fa">&#rarr;</span>
+<div class="fs" style="font-size:13px;padding:4px 9px">特征工程</div><span class="fa">&#rarr;</span>
+<div class="fs" style="font-size:13px;padding:4px 9px">数据划分</div>
+</div>
+<div class="fst fst-g">&#9313; 模型训练</div>
+<div class="fl" style="margin-left:0">
+<div class="fs" style="font-size:13px;padding:4px 9px;background:#eef8f0;border-color:#70c090;color:#1a5a1a">算法选型</div><span class="fa">&#rarr;</span>
+<div class="fs" style="font-size:13px;padding:4px 9px;background:#eef8f0;border-color:#70c090;color:#1a5a1a">环境准备</div><span class="fa">&#rarr;</span>
+<div class="fs" style="font-size:13px;padding:4px 9px;background:#eef8f0;border-color:#70c090;color:#1a5a1a">模型训练</div><span class="fa">&#rarr;</span>
+<div class="fs" style="font-size:13px;padding:4px 9px;background:#eef8f0;border-color:#70c090;color:#1a5a1a">评估优化</div>
+</div>
+<div class="fst fst-p">&#9314; 模型部署</div>
+<div class="fl" style="margin-left:0">
+<div class="fs" style="font-size:13px;padding:4px 9px;background:#f5eef8;border-color:#b080d0;color:#5a1090">蒸馏</div>
+<div class="fs" style="font-size:13px;padding:4px 9px;background:#f5eef8;border-color:#b080d0;color:#5a1090">量化</div>
+<div class="fs" style="font-size:13px;padding:4px 9px;background:#f5eef8;border-color:#b080d0;color:#5a1090">剪枝</div>
+<span class="fa">&#rarr;</span>
+<div class="fs" style="font-size:13px;padding:4px 9px;background:#f5eef8;border-color:#b080d0;color:#5a1090">在线/离线/ATB</div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="ch">四 神经网络原理</div>
+<div class="sc">全连接网络结构</div>
+<div class="fl" style="justify-content:center">
+<div class="fs" style="background:#fff0e8;border-color:#e8a060;color:#a04010;font-size:18px;padding:9px 16px"><strong>输入层</strong><br><span style="font-size:11px">特征向量</span></div>
+<span class="fa" style="font-size:23px">&#rarr;</span>
+<div class="fs" style="background:#eef4ff;border-color:#6090e0;color:#1040a0;font-size:18px;padding:9px 16px"><strong>隐藏层</strong><br><span style="font-size:11px">非线性变换</span></div>
+<span class="fa" style="font-size:23px">&#rarr;</span>
+<div class="fs" style="background:#eef8f0;border-color:#70c090;color:#1a5a1a;font-size:18px;padding:9px 16px"><strong>输出层</strong><br><span style="font-size:11px">预测结果</span></div>
+</div>
+<div class="sc">常见网络结构对比</div>
+<table class="tbl"><tr><th>网络</th><th>擅长任务</th><th>核心机制</th></tr>
+<tr><td><span class="n">CNN</span><br><span class="tag to" style="font-size:11px">卷积神经网络</span></td><td>图像视觉<br>分类/检测/分割</td><td>卷积核局部感受野<br>权重共享</td></tr>
+<tr><td><span class="n">RNN</span><br><span class="tag tb" style="font-size:11px">循环神经网络</span></td><td>序列/时序数据<br>NLP/语音</td><td>隐状态循环传递<br>记忆历史信息</td></tr>
+<tr><td><span class="n">Transformer</span><br><span class="tag tg" style="font-size:11px">变换器</span></td><td>自然语言NLP<br>文本生成/理解</td><td>自注意力机制<br>并行全局关联</td></tr>
+</table>
+<div class="sc">工作原理</div>
+<div class="bx">
+<div style="font-size:15px;color:#5a30a0;font-weight:700;margin-bottom:7px">前向传播 &#8594; 损失计算 &#8594; 反向传播 &#8594; 参数更新（循环迭代）</div>
+<div style="margin:4px 0"><span class="tag to">前向传播</span> <span style="font-size:14px;color:#555">输入经各层线性+非线性变换，输出预测值</span></div>
+<div style="margin:4px 0"><span class="tag tb">损失函数</span> <span style="font-size:14px;color:#555">衡量预测与真实差距（交叉熵、MSE等）</span></div>
+<div style="margin:4px 0"><span class="tag tg">反向传播</span> <span style="font-size:14px;color:#555">梯度沿网络反向传播（链式法则），更新权重</span></div>
+<div style="margin:4px 0"><span class="tag tp">激活函数</span> <span style="font-size:14px;color:#555">ReLU/Sigmoid/Tanh &#8212; 引入非线性，学习复杂模式</span></div>
+</div>
+</section>
+
+</div>
+<div class="ft"><span class="fn">1</span>/ 2 &#8212; 人工智能基础</div>
+</div>
+
+<div class="page">
+<div class="mt">大模型技术</div>
+<div class="ms">Large Model Technology &#8212; 从LLM到多模态与扩散</div>
+<div class="tl"></div>
+<div class="inner">
+
+<section>
+<div class="ch">一 大模型整体认知</div>
+<div class="sc">定义</div>
+<div class="para">基于<span class="kw">深度学习技术</span>构建的神经网络模型，<span class="kw">参数量通常超过十亿</span>（Billion级），具备通用理解与生成能力。</div>
+<div class="sc">三大特征</div>
+<div class="bx">
+<div style="margin-bottom:9px"><span class="tag tb">&#9855; 01</span> <strong>Transformer + 自注意力机制</strong> &#8212; 并行计算、全局关联语义</div>
+<div style="margin-bottom:7px"><span class="tag to">&#9855; 02</span> 参数量巨大</div>
+<div style="margin-left:18px;margin-bottom:7px"><span class="tag tb" style="font-size:12px">预训练</span> 基础模型（Base）+ 增量训练（Continue Pretraining）</div>
+<div style="margin-left:18px;margin-bottom:9px"><span class="tag tg" style="font-size:12px">后训练</span> SFT（有监督微调）、RLHF、DPO等对齐技术</div>
+<div><span class="tag tp">&#9855; 03</span> <strong>预训练 + 微调</strong> &#8212; 预训练学广泛知识 &#8594; 微调适配特定任务</div>
+</div>
+<div class="sc">典型类型与应用场景</div>
+<div class="bx">
+<div class="ar">
+<div class="ai"><strong style="color:#1a4a9a">CV 大模型</strong><div class="ad">图像分割/分类/检测<br>气象预测、基因分析</div></div>
+<div class="ai"><strong style="color:#1a7a3a">NLP 大模型</strong><div class="ad">文本生成/内容理解<br>预测/异常检测</div></div>
+<div class="ai"><strong style="color:#7a2090">多模态</strong><div class="ad">文生图/文生视频<br>图文检索、声音模拟</div></div>
+</div>
+<div class="ar" style="margin-top:7px">
+<div class="ai" style="background:#fff8f0;border-color:#e8a060"><strong style="color:#a04010">科学计算</strong><div class="ad">AlphaFold<br>偏微分方程求解</div></div>
+<div class="ai" style="background:#fff8f0;border-color:#e8a060"><strong style="color:#a04010">辅助设计</strong><div class="ad">工业/建筑设计<br>药物分子生成</div></div>
+<div class="ai" style="background:#fff8f0;border-color:#e8a060"><strong style="color:#a04010">智能客服</strong><div class="ad">企业数字化<br>对话式AI落地</div></div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="ch">二 大语言模型 LLM</div>
+<div class="sc">底层基座：Transformer 架构</div>
+<div class="trn">
+<div style="font-size:13px;color:#555;margin-bottom:7px">输入：词嵌入（Embedding）+ 位置编码（Positional Encoding）&#8594; N层Transformer块 &#8594; 输出</div>
+<div style="display:flex;gap:5px;margin-bottom:7px;align-items:center">
+<div class="tb2" style="background:#fff0e8;border-color:#e8a060"><div class="tbn2">&#9312; 词嵌入</div><div class="tbd2">Token&#8594;稠密向量</div></div>
+<span style="color:#aaa;font-size:16px">+</span>
+<div class="tb2" style="background:#eef4ff;border-color:#6090e0"><div class="tbn2">&#9313; 位置编码</div><div class="tbd2">注入序列位置信息</div></div>
+</div>
+<div style="text-align:center;font-size:13px;color:#4080c0;font-weight:700;margin:5px 0">&#9660; N &#215; Multi-Head Self-Attention + Feed-Forward &#9660;</div>
+<div style="display:flex;gap:5px;margin-bottom:7px">
+<div class="tb2"><div class="tbn2">多头注意力</div><div class="tbd2">并行多组注意力<br>捕捉不同语义关联</div></div>
+<span style="color:#aaa;font-size:16px;display:flex;align-items:center">+</span>
+<div class="tb2"><div class="tbn2">前馈网络</div><div class="tbd2">通用知识分析<br>深度语义理解</div></div>
+<span style="color:#aaa;font-size:16px;display:flex;align-items:center">+</span>
+<div class="tb2"><div class="tbn2">残差+归一化</div><div class="tbd2">梯度流动<br>训练稳定</div></div>
+</div>
+<div style="text-align:center;margin-top:7px">
+<span class="tag tb" style="font-size:13px">编码器 Encoder</span> <span style="font-size:13px;color:#888">&#8594; 语义理解（如BERT）</span>
+<span style="margin:0 6px;color:#ccc">|</span>
+<span class="tag tg" style="font-size:13px">解码器 Decoder</span> <span style="font-size:13px;color:#888">&#8594; 文本生成（如GPT）</span>
+</div>
+</div>
+<div class="sc">核心原理与关键技术</div>
+<div style="display:flex;flex-wrap:wrap;gap:5px;margin:7px 0">
+<span class="tag tb">注意力机制</span>
+<span class="tag tb">Token分词</span>
+<span class="tag tb">词嵌入</span>
+<span class="tag to">归一化</span>
+<span class="tag to">位置编码</span>
+<span class="tag tg">残差连接</span>
+<span class="tag tp">MoE混合专家</span>
+</div>
+<div class="para" style="font-size:15px;color:#555;margin-top:5px">
+<strong style="color:#3a5aaa">注意力机制</strong>：Query-Key-Value 计算，捕捉token间远程依赖关系<br>
+<strong style="color:#3a5aaa">Token分词</strong>：BPE/WordPiece/Unigram，将文本切分为最优子词单元<br>
+<strong style="color:#3a5aaa">MoE</strong>：混合专家路由，只激活部分专家网络，降低推理成本
+</div>
+</section>
+
+<section>
+<div class="ch">三 多模态模型</div>
+<div class="sc">多模态通用架构</div>
+<div class="vl">
+<div style="margin-bottom:7px"><strong style="color:#1a7a1a">文本编码器</strong>（LLM Backbone）+ <strong style="color:#1a4a9a">视觉编码器</strong>（图像&#8594;特征）+ <strong style="color:#1a7a3a">跨模态融合层</strong>（对齐+融合）</div>
+<div class="ar">
+<div class="ai" style="background:#fff0e8;border-color:#e8a080"><strong style="color:#b03010">文本编码器</strong><div class="ad">LLM Backbone</div></div>
+<div class="ai" style="background:#eef4ff;border-color:#8ab0e0"><strong style="color:#1a4a9a">视觉编码器</strong><div class="ad">图像&#8594;特征向量</div></div>
+<div class="ai" style="background:#eef8f0;border-color:#70c090"><strong style="color:#1a7a3a">跨模态融合</strong><div class="ad">对齐+融合层</div></div>
+</div>
+</div>
+<div class="sc">图像编码器</div>
+<div class="bx">
+<div style="margin-bottom:7px"><span class="tag tb">CLIP</span> &#8212; 对比语言-图像预训练，图文对比学习，zero-shot图像分类</div>
+<div><span class="tag tg">ViT</span> &#8212; Vision Transformer，将图像切分为patch序列，用Transformer处理视觉token</div>
+</div>
+<div class="sc">面向理解任务的VLM架构</div>
+<div class="vl">
+<div style="margin:5px 0"><span class="tag tb">&#9312; 图像理解</span> 图像编码器提取视觉特征 &#8594; 与文本token对齐融合 &#8594; LLM推理答案</div>
+<div style="margin:5px 0"><span class="tag to">&#9313; 图文生成</span> LLM理解文本描述 &#8594; 生成图像token &#8594; 扩散模型解码为图像</div>
+<div style="margin:5px 0"><span class="tag tg">&#9314; 跨模态检索</span> 图像和文本映射到统一语义空间，计算相似度进行匹配</div>
+</div>
+</section>
+
+<section>
+<div class="ch">四 扩散模型 Diffusion Model</div>
+<div class="sc">核心原理</div>
+<div class="bx">
+<div style="font-size:17px;color:#5a30a0;font-weight:700;text-align:center;margin-bottom:9px">扩散加噪（Forward）&#8596; 去噪还原（Reverse）</div>
+<div class="df" style="justify-content:center">
+<div class="ds ds-f">真实图像 x&#8320;</div>
+<span class="fa">&#8594;</span>
+<div class="ds ds-f">+噪声&#215;T步</div>
+<span class="fa">&#8594;</span>
+<div class="ds ds-f">x&#832T; &#8776; N(0,1)</div>
+<span style="color:#888;margin:0 4px">|</span>
+<div class="ds ds-r">去噪网络</div>
+<span class="fa">&#8592;</span>
+<div class="ds ds-r">-噪声&#215;T步</div>
+<span class="fa">&#8592;</span>
+<div class="ds ds-r">干净图像 x&#8320;</div>
+</div>
+</div>
+<div class="sc">训练流程</div>
+<div class="fl" style="justify-content:center">
+<div class="fs" style="background:#fff0e8;border-color:#e8a060;color:#a04010;font-size:15px;padding:7px 12px">真实图像 x&#8320;</div>
+<span class="fa">&#8594;</span>
+<div class="fs" style="background:#f5eef8;border-color:#b080d0;color:#5a1090;font-size:15px;padding:7px 12px">随机采样 t</div>
+<span class="fa">&#8594;</span>
+<div class="fs" style="background:#eef4ff;border-color:#6090e0;color:#1040a0;font-size:15px;padding:7px 12px">加噪 q(x&#832;t;|x&#8320;)</div>
+<span class="fa">&#8594;</span>
+<div class="fs" style="background:#eef8f0;border-color:#70c090;color:#1a5a1a;font-size:15px;padding:7px 12px">预测噪声 &#949;&#952;&#952;</div>
+<span class="fa">&#8594;</span>
+<div class="fs" style="background:#fff8f0;border-color:#e8a060;color:#a04010;font-size:15px;padding:7px 12px">梯度更新</div>
+</div>
+<div class="sc">推理流程</div>
+<div class="fl" style="justify-content:center">
+<div class="fs" style="background:#eef4ff;border-color:#6090e0;color:#1040a0;font-size:15px;padding:7px 12px">随机噪声 x&#832T;</div>
+<span class="fa">&#8594;</span>
+<div class="fs" style="background:#eef8f0;border-color:#70c090;color:#1a5a1a;font-size:15px;padding:7px 12px">去噪网络 &#949;&#952;&#952;</div>
+<span class="fa">&#8594;</span>
+<div class="fs" style="background:#f5eef8;border-color:#b080d0;color:#5a1090;font-size:15px;padding:7px 12px">迭代 T 次</div>
+<span class="fa">&#8594;</span>
+<div class="fs" style="background:#fff0e8;border-color:#e8a060;color:#a04010;font-size:15px;padding:7px 12px">生成图像 x&#8320;</div>
+</div>
+<div class="sc">DiT 总架构</div>
+<div class="vl">
+<div style="font-size:15px;color:#1a7a1a;font-weight:700;margin-bottom:7px">Diffusion Transformer = VAE编码 + Transformer Blocks + VAE解码</div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:7px">
+<span class="tag to" style="font-size:13px">VAE编码</span><span style="font-size:14px;color:#555">将图像压缩为 latent token 序列</span>
+</div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px">
+<span class="tag tb" style="font-size:13px">DiT Blocks</span><span style="font-size:14px;color:#555">自适应 Layer Norm + QK归一化 + 交叉注意力（conditioning）</span>
+</div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px">
+<span class="tag tg" style="font-size:13px">VAE解码</span><span style="font-size:14px;color:#555">将 denoised latent 重构为像素级图像</span>
+</div>
+<div style="margin-top:7px;font-size:14px;color:#555">优势：将扩散模型的去噪过程迁移到 Transformer 架构，兼顾扩散的生成质量与 Transformer 的 scaling 能力</div>
+</div>
+</section>
+
+</div>
+<div class="ft"><span class="fn">2</span>/ 2 — 大模型技术</div>
+</div>
+</body>
+</html>
